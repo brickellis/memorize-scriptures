@@ -503,7 +503,9 @@
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
+            console.log('Document loaded. Setting up event listeners...');
             setupEventListeners();
+            console.log('App initialized. Loading flashcards...');
             loadFlashcardsFromRepo();
         });
 
