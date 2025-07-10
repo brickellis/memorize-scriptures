@@ -333,6 +333,7 @@
         <div id="session-screen" class="screen">
             <div class="session-header">
                 <div id="progress" class="progress">Card 1 of 10</div>
+                <button class="btn secondary" onclick="restartSession()">Restart</button>
             </div>
             <div class="card-container">
                 <div id="flashcard" class="flashcard" onclick="flipCard()">
@@ -733,7 +734,6 @@
             const continueBtn = document.getElementById('continue-btn');
             continueBtn.style.display = sessionState.unknownCards.length > 0 ? 'block' : 'none';
 
-            clearSession();
             showScreen('results-screen');
         }
 
@@ -754,8 +754,27 @@
             displayCurrentCard();
         }
 
+        function restartSession() {
+            // Reset the sessionState to its initial values
+            sessionState = {
+                selectedCards: [],
+                currentQueue: [],
+                currentCardIndex: 0,
+                isFlipped: false,
+                sessionActive: false,
+                startTime: null,
+                stats: { known: 0, unknown: 0 },
+                knownCards: [],
+                unknownCards: [],
+                shuffleEnabled: document.getElementById('shuffle-toggle').checked // Maintain shuffle setting
+            };
+            // Go back to the selection screen
+            showScreen('selection-screen');
+            // Ensure all checkboxes are unchecked for a fresh start
+            clearAll();
+        }
+
         function startFresh() {
-            clearSession();
             document.getElementById('resume-prompt').style.display = 'none';
         }
 
