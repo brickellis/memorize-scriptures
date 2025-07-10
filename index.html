@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Study App</title>
-        <style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -316,7 +316,6 @@
                     placeholder='{"categories": {"math": {"name": "Mathematics", "subcategories": {"calculus": {"name": "Calculus", "cards": [{"front": "What is a derivative?", "back": "Rate of change of a function"}]}}}}}'></textarea>
                 <button class="btn" onclick="loadData()">Load Data</button>
             </div>
-            <div id="selection-tree" class="selection-tree" style="display: none;"></div>
             <div class="selection-controls">
                 <div class="shuffle-toggle">
                     <input type="checkbox" id="shuffle-toggle" checked>
@@ -326,6 +325,8 @@
                 <button class="btn secondary" onclick="selectAll()">Select All</button>
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
             </div>
+            <div id="selection-tree" class="selection-tree" style="display: none;"></div>
+
             <div id="error-msg" class="error" style="display: none;"></div>
             <div id="loading-msg" class="loading" style="display: none;">Loading flashcards...</div>
         </div>
@@ -384,7 +385,7 @@
             knownCards: [],
             unknownCards: [],
             // New state variable for shuffle
-            shuffleEnabled: true 
+            shuffleEnabled: true
         };
 
         // Initialize app
@@ -392,7 +393,7 @@
             // Set initial state of shuffle toggle
             document.getElementById('shuffle-toggle').checked = sessionState.shuffleEnabled;
             // Add event listener for the shuffle toggle
-            document.getElementById('shuffle-toggle').addEventListener('change', function() {
+            document.getElementById('shuffle-toggle').addEventListener('change', function () {
                 sessionState.shuffleEnabled = this.checked;
             });
             setupEventListeners();
