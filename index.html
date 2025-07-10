@@ -755,7 +755,7 @@
         }
 
         function restartSession() {
-            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...selectedCards]) : [...selectedCards];
+            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...sessionState.selectedCards]) : [...sessionState.selectedCards];
             sessionState.currentCardIndex = 0;
             sessionState.isFlipped = false;
             sessionState.sessionActive = true;
