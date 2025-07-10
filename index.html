@@ -442,6 +442,7 @@
         </div>
     </div>
     <script>
+        console.log('Starting Flashcard Study App...');
         // Global state
         let flashcardData = null;
         let sessionState = {
@@ -502,6 +503,7 @@
         };
 
         // Initialize app
+        console.log('Initializing app...');
         document.addEventListener('DOMContentLoaded', function () {
             console.log('Document loaded. Setting up event listeners...');
             setupEventListeners();
