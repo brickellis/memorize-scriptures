@@ -43,32 +43,6 @@
             display: block;
         }
 
-        /* Loading Screen */
-        .loading {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
         /* Selection Screen */
         .data-input {
             margin-bottom: 20px;
@@ -309,25 +283,6 @@
             text-align: center;
         }
 
-        .data-source {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-        }
-
-        .data-source h3 {
-            margin-bottom: 10px;
-            color: #495057;
-        }
-
-        .data-source p {
-            color: #666;
-            margin-bottom: 10px;
-        }
-
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -354,27 +309,13 @@
 <body>
     <div class="container">
         <h1>Flashcard Study App</h1>
-
-        <!-- Loading Screen -->
-        <div id="loading-screen" class="screen active">
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading flashcards from repository...</p>
-            </div>
-        </div>
-
         <!-- Selection Screen -->
-        <div id="selection-screen" class="screen">
-            <div class="data-source">
-                <h3>Flashcard Data Source</h3>
-                <p>Automatically loaded from: <strong>flashcards.json</strong></p>
-                <p>You can also manually enter or modify JSON data below:</p>
-            </div>
-
+        <div id="selection-screen" class="screen active">
             <div class="data-input">
-                <label for="json-input">Flashcard data (JSON format):</label>
-                <textarea id="json-input" placeholder='Loading from flashcards.json...'></textarea>
-                <button class="btn" onclick="loadData()">Reload Data</button>
+                <label for="json-input">Enter your flashcard data (JSON format):</label>
+                <textarea id="json-input"
+                    placeholder='{"categories": {"math": {"name": "Mathematics", "subcategories": {"calculus": {"name": "Calculus", "cards": [{"front": "What is a derivative?", "back": "Rate of change of a function"}]}}}}}'></textarea>
+                <button class="btn" onclick="loadData()">Load Data</button>
             </div>
             <div id="resume-prompt" class="resume-prompt" style="display: none;">
                 <p>You have a saved session in progress. Would you like to resume it?</p>
@@ -390,6 +331,7 @@
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
             </div>
             <div id="error-msg" class="error" style="display: none;"></div>
+            <div id="loading-msg" class="loading" style="display: none;">Loading flashcards...</div>
         </div>
         <!-- Session Screen -->
         <div id="session-screen" class="screen">
@@ -442,7 +384,6 @@
         </div>
     </div>
     <script>
-        console.log('Starting Flashcard Study App...');
         // Global state
         let flashcardData = null;
         let sessionState = {
@@ -457,66 +398,23 @@
             unknownCards: []
         };
 
-        // Sample data for fallback
-        const sampleData = {
-            "categories": {
-                "math": {
-                    "name": "Mathematics",
-                    "subcategories": {
-                        "calculus": {
-                            "name": "Calculus",
-                            "cards": [
-                                { "front": "What is a derivative?", "back": "The rate of change of a function at a point" },
-                                { "front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation" },
-                                { "front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations" }
-                            ]
-                        },
-                        "algebra": {
-                            "name": "Algebra",
-                            "cards": [
-                                { "front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0" },
-                                { "front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a" }
-                            ]
-                        }
-                    }
-                },
-                "science": {
-                    "name": "Science",
-                    "subcategories": {
-                        "biology": {
-                            "name": "Biology",
-                            "cards": [
-                                { "front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy" },
-                                { "front": "What is mitosis?", "back": "The process of cell division that produces two identical cells" }
-                            ]
-                        },
-                        "chemistry": {
-                            "name": "Chemistry",
-                            "cards": [
-                                { "front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element" },
-                                { "front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms" }
-                            ]
-                        }
-                    }
-                }
-            }
-        };
-
         // Initialize app
-        console.log('Initializing app...');
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('Document loaded. Setting up event listeners...');
+            checkForSavedSession();
             setupEventListeners();
-            console.log('App initialized. Loading flashcards...');
-            loadFlashcardsFromRepo();
+            // Load flashcards.json from GitHub Pages
+            loadFlashcardsFromGitHub();
         });
 
-        // Load flashcards from repository
-        async function loadFlashcardsFromRepo() {
+        async function loadFlashcardsFromGitHub() {
+            const loadingMsg = document.getElementById('loading-msg');
+            const errorMsg = document.getElementById('error-msg');
+
             try {
-                const url = new URL('./flashcards.json', window.location.href);
-                console.log('Full URL:', url.href);
-                const response = await fetch(url);
+                loadingMsg.style.display = 'block';
+                errorMsg.style.display = 'none';
+
+                const response = await fetch('./flashcards.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -529,43 +427,60 @@
 
                 flashcardData = data;
                 document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-
-                // Show success message
-                const successMsg = document.createElement('div');
-                successMsg.className = 'success';
-                successMsg.textContent = 'Successfully loaded flashcards from repository!';
-                document.getElementById('selection-screen').insertBefore(successMsg, document.getElementById('selection-screen').firstChild);
-
-                // Remove success message after 3 seconds
-                setTimeout(() => {
-                    if (successMsg.parentNode) {
-                        successMsg.parentNode.removeChild(successMsg);
-                    }
-                }, 3000);
-
                 renderSelectionTree();
-                checkForSavedSession();
-                showScreen('selection-screen');
+                loadingMsg.style.display = 'none';
 
             } catch (error) {
                 console.error('Error loading flashcards.json:', error);
+                loadingMsg.style.display = 'none';
+                showError('Failed to load flashcards.json: ' + error.message + '. You can manually enter JSON data above.');
 
-                // Fall back to sample data
-                flashcardData = sampleData;
+                // Fallback to sample data
+                const sampleData = {
+                    "categories": {
+                        "math": {
+                            "name": "Mathematics",
+                            "subcategories": {
+                                "calculus": {
+                                    "name": "Calculus",
+                                    "cards": [
+                                        { "front": "What is a derivative?", "back": "The rate of change of a function at a point" },
+                                        { "front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation" },
+                                        { "front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations" }
+                                    ]
+                                },
+                                "algebra": {
+                                    "name": "Algebra",
+                                    "cards": [
+                                        { "front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0" },
+                                        { "front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a" }
+                                    ]
+                                }
+                            }
+                        },
+                        "science": {
+                            "name": "Science",
+                            "subcategories": {
+                                "biology": {
+                                    "name": "Biology",
+                                    "cards": [
+                                        { "front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy" },
+                                        { "front": "What is mitosis?", "back": "The process of cell division that produces two identical cells" }
+                                    ]
+                                },
+                                "chemistry": {
+                                    "name": "Chemistry",
+                                    "cards": [
+                                        { "front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element" },
+                                        { "front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms" }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                };
+
                 document.getElementById('json-input').value = JSON.stringify(sampleData, null, 2);
-
-                // Show error message
-                const errorMsg = document.createElement('div');
-                errorMsg.className = 'error';
-                errorMsg.innerHTML = `
-                    <strong>Could not load flashcards.json:</strong> ${error.message}<br>
-                    <small>Loaded sample data instead. You can modify the JSON below or ensure flashcards.json exists in your repository.</small>
-                `;
-                document.getElementById('selection-screen').insertBefore(errorMsg, document.getElementById('selection-screen').firstChild);
-
-                renderSelectionTree();
-                checkForSavedSession();
-                showScreen('selection-screen');
             }
         }
 
@@ -642,20 +557,6 @@
 
                 renderSelectionTree();
                 errorMsg.style.display = 'none';
-
-                // Show success message
-                const successMsg = document.createElement('div');
-                successMsg.className = 'success';
-                successMsg.textContent = 'Data loaded successfully!';
-                document.getElementById('selection-screen').insertBefore(successMsg, document.getElementById('selection-tree'));
-
-                // Remove success message after 3 seconds
-                setTimeout(() => {
-                    if (successMsg.parentNode) {
-                        successMsg.parentNode.removeChild(successMsg);
-                    }
-                }, 3000);
-
             } catch (e) {
                 showError('Invalid JSON format: ' + e.message);
             }
@@ -939,3 +840,68 @@
                     document.getElementById('resume-prompt').style.display = 'none';
                 } catch (e) {
                     showError('Could not resume session: ' + e.message);
+                }
+            }
+        }
+
+        function startFresh() {
+            clearSession();
+            document.getElementById('resume-prompt').style.display = 'none';
+        }
+
+        function backToSelection() {
+            showScreen('selection-screen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function saveSession() {
+            if (sessionState.sessionActive) {
+                setCookie('flashcard_session', JSON.stringify(sessionState), 7);
+            }
+        }
+
+        function clearSession() {
+            setCookie('flashcard_session', '', -1);
+        }
+
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+    </script>
+</body>
+
+</html>
