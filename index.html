@@ -42,29 +42,6 @@
             display: block;
         }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #3498db;
-            border-top: 3px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* Selection Screen */
         .data-input {
             margin-bottom: 20px;
@@ -330,18 +307,12 @@
   <body>
     <div class="container">
       <h1>Flashcard Study App</h1>
-      
-      <!-- Loading Screen -->
-      <div id="loading-screen" class="screen active">
-        <div class="loading">Loading flashcards...</div>
-      </div>
-
       <!-- Selection Screen -->
-      <div id="selection-screen" class="screen">
+      <div id="selection-screen" class="screen active">
         <div class="data-input">
-          <label for="json-input">Flashcard data (you can edit this if needed):</label>
-          <textarea id="json-input" placeholder="Flashcard data will be loaded automatically..."></textarea>
-          <button class="btn" onclick="loadData()">Reload Data</button>
+          <label for="json-input">Enter your flashcard data (JSON format):</label>
+          <textarea id="json-input" placeholder='{"categories": {"math": {"name": "Mathematics", "subcategories": {"calculus": {"name": "Calculus", "cards": [{"front": "What is a derivative?", "back": "Rate of change of a function"}]}}}}}'></textarea>
+          <button class="btn" onclick="loadData()">Load Data</button>
         </div>
         <div id="resume-prompt" class="resume-prompt" style="display: none;">
           <p>You have a saved session in progress. Would you like to resume it?</p>
@@ -358,7 +329,6 @@
         </div>
         <div id="error-msg" class="error" style="display: none;"></div>
       </div>
-      
       <!-- Session Screen -->
       <div id="session-screen" class="screen">
         <div class="session-header">
@@ -383,7 +353,6 @@
           <button class="btn secondary" onclick="quitSession()">Quit Session</button>
         </div>
       </div>
-      
       <!-- Results Screen -->
       <div id="results-screen" class="screen">
         <div class="results">
@@ -409,7 +378,6 @@
         </div>
       </div>
     </div>
-    
     <script>
       // Global state
         let flashcardData = null;
@@ -425,43 +393,59 @@
             unknownCards: []
         };
 
+        // Sample data for demonstration
+        const sampleData = {
+            "categories": {
+                "math": {
+                    "name": "Mathematics",
+                    "subcategories": {
+                        "calculus": {
+                            "name": "Calculus",
+                            "cards": [
+                                {"front": "What is a derivative?", "back": "The rate of change of a function at a point"},
+                                {"front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation"},
+                                {"front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations"}
+                            ]
+                        },
+                        "algebra": {
+                            "name": "Algebra",
+                            "cards": [
+                                {"front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0"},
+                                {"front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a"}
+                            ]
+                        }
+                    }
+                },
+                "science": {
+                    "name": "Science",
+                    "subcategories": {
+                        "biology": {
+                            "name": "Biology",
+                            "cards": [
+                                {"front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy"},
+                                {"front": "What is mitosis?", "back": "The process of cell division that produces two identical cells"}
+                            ]
+                        },
+                        "chemistry": {
+                            "name": "Chemistry",
+                            "cards": [
+                                {"front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element"},
+                                {"front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms"}
+                            ]
+                        }
+                    }
+                }
+            }
+        };
+
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            loadFlashcardsFromFile();
+            checkForSavedSession();
             setupEventListeners();
+            // Load sample data by default
+            document.getElementById('json-input').value = JSON.stringify(sampleData, null, 2);
+            loadData();
         });
-
-        async function loadFlashcardsFromFile() {
-            try {
-                const response = await fetch('flashcards.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                
-                if (!validateData(data)) {
-                    throw new Error('Invalid data format in flashcards.json');
-                }
-                
-                flashcardData = data;
-                document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-                
-                // Hide loading screen and show selection screen
-                document.getElementById('loading-screen').classList.remove('active');
-                document.getElementById('selection-screen').classList.add('active');
-                
-                renderSelectionTree();
-                checkForSavedSession();
-                
-            } catch (error) {
-                console.error('Error loading flashcards:', error);
-                showError('Failed to load flashcards.json: ' + error.message);
-                
-                // Show selection screen even on error so user can input data manually
-                document.getElementById('loading-screen').classList.remove('active');
-                document.getElementById('selection-screen').classList.add('active');
-            }
-        }
 
         function setupEventListeners() {
             // Keyboard events
@@ -869,3 +853,17 @@
             expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
             document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
         }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+    </script>
+  </body>
+</html>
