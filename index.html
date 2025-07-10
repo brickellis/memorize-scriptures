@@ -755,23 +755,17 @@
         }
 
         function restartSession() {
-            // Reset the sessionState to its initial values
-            sessionState = {
-                selectedCards: [],
-                currentQueue: [],
-                currentCardIndex: 0,
-                isFlipped: false,
-                sessionActive: false,
-                startTime: null,
-                stats: { known: 0, unknown: 0 },
-                knownCards: [],
-                unknownCards: [],
-                shuffleEnabled: document.getElementById('shuffle-toggle').checked // Maintain shuffle setting
-            };
-            // Go back to the selection screen
-            showScreen('selection-screen');
-            // Ensure all checkboxes are unchecked for a fresh start
-            clearAll();
+            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...selectedCards]) : [...selectedCards];
+            sessionState.currentCardIndex = 0;
+            sessionState.isFlipped = false;
+            sessionState.sessionActive = true;
+            sessionState.startTime = Date.now();
+            sessionState.stats = { known: 0, unknown: 0 };
+            sessionState.knownCards = [];
+            sessionState.unknownCards = [];
+
+            showScreen('session-screen');
+            displayCurrentCard();
         }
 
         function startFresh() {
