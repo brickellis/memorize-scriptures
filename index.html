@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Study App</title>
     <style>
-      * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -25,7 +26,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -59,8 +60,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Selection Screen */
@@ -343,98 +349,100 @@
             }
         }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="container">
-      <h1>Flashcard Study App</h1>
-      
-      <!-- Loading Screen -->
-      <div id="loading-screen" class="screen active">
-        <div class="loading">
-          <div class="loading-spinner"></div>
-          <p>Loading flashcards from repository...</p>
-        </div>
-      </div>
-      
-      <!-- Selection Screen -->
-      <div id="selection-screen" class="screen">
-        <div class="data-source">
-          <h3>Flashcard Data Source</h3>
-          <p>Automatically loaded from: <strong>flashcards.json</strong></p>
-          <p>You can also manually enter or modify JSON data below:</p>
-        </div>
-        
-        <div class="data-input">
-          <label for="json-input">Flashcard data (JSON format):</label>
-          <textarea id="json-input" placeholder='Loading from flashcards.json...'></textarea>
-          <button class="btn" onclick="loadData()">Reload Data</button>
-        </div>
-        <div id="resume-prompt" class="resume-prompt" style="display: none;">
-          <p>You have a saved session in progress. Would you like to resume it?</p>
-          <button class="btn" onclick="resumeSession()">Resume Session</button>
-          <button class="btn secondary" onclick="startFresh()">Start Fresh</button>
-        </div>
-        <div id="selection-tree" class="selection-tree" style="display: none;">
-          <!-- Dynamic content will be inserted here -->
-        </div>
-        <div class="selection-controls">
-          <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
-          <button class="btn secondary" onclick="selectAll()">Select All</button>
-          <button class="btn secondary" onclick="clearAll()">Clear All</button>
-        </div>
-        <div id="error-msg" class="error" style="display: none;"></div>
-      </div>
-      <!-- Session Screen -->
-      <div id="session-screen" class="screen">
-        <div class="session-header">
-          <div id="progress" class="progress">Card 1 of 10</div>
-        </div>
-        <div class="card-container">
-          <div id="flashcard" class="flashcard" onclick="flipCard()">
-            <div id="card-front" class="card-side active">
-              <div class="card-content"></div>
+        <h1>Flashcard Study App</h1>
+
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading flashcards from repository...</p>
             </div>
-            <div id="card-back" class="card-side">
-              <div class="card-content"></div>
-            </div>
-            <div class="flip-hint">Click to flip</div>
-          </div>
         </div>
-        <div class="keyboard-hint">
-          Use ← (left arrow) for "Don't Know" and → (right arrow) for "Know It"
-        </div>
-        <div class="session-actions">
-          <button class="btn secondary" onclick="pauseSession()">Pause Session</button>
-          <button class="btn secondary" onclick="quitSession()">Quit Session</button>
-        </div>
-      </div>
-      <!-- Results Screen -->
-      <div id="results-screen" class="screen">
-        <div class="results">
-          <h2>Session Complete!</h2>
-          <div class="stats">
-            <div class="stat-item">
-              <div id="known-count" class="stat-number">0</div>
-              <div class="stat-label">Cards Mastered</div>
+
+        <!-- Selection Screen -->
+        <div id="selection-screen" class="screen">
+            <div class="data-source">
+                <h3>Flashcard Data Source</h3>
+                <p>Automatically loaded from: <strong>flashcards.json</strong></p>
+                <p>You can also manually enter or modify JSON data below:</p>
             </div>
-            <div class="stat-item">
-              <div id="unknown-count" class="stat-number">0</div>
-              <div class="stat-label">Cards to Review</div>
+
+            <div class="data-input">
+                <label for="json-input">Flashcard data (JSON format):</label>
+                <textarea id="json-input" placeholder='Loading from flashcards.json...'></textarea>
+                <button class="btn" onclick="loadData()">Reload Data</button>
             </div>
-            <div class="stat-item">
-              <div id="session-time" class="stat-number">0m</div>
-              <div class="stat-label">Study Time</div>
+            <div id="resume-prompt" class="resume-prompt" style="display: none;">
+                <p>You have a saved session in progress. Would you like to resume it?</p>
+                <button class="btn" onclick="resumeSession()">Resume Session</button>
+                <button class="btn secondary" onclick="startFresh()">Start Fresh</button>
             </div>
-          </div>
-          <div>
-            <button id="continue-btn" class="btn" onclick="continueWithMissed()" style="display: none;">Continue with Missed Cards</button>
-            <button class="btn secondary" onclick="backToSelection()">New Session</button>
-          </div>
+            <div id="selection-tree" class="selection-tree" style="display: none;">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="selection-controls">
+                <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
+                <button class="btn secondary" onclick="selectAll()">Select All</button>
+                <button class="btn secondary" onclick="clearAll()">Clear All</button>
+            </div>
+            <div id="error-msg" class="error" style="display: none;"></div>
         </div>
-      </div>
+        <!-- Session Screen -->
+        <div id="session-screen" class="screen">
+            <div class="session-header">
+                <div id="progress" class="progress">Card 1 of 10</div>
+            </div>
+            <div class="card-container">
+                <div id="flashcard" class="flashcard" onclick="flipCard()">
+                    <div id="card-front" class="card-side active">
+                        <div class="card-content"></div>
+                    </div>
+                    <div id="card-back" class="card-side">
+                        <div class="card-content"></div>
+                    </div>
+                    <div class="flip-hint">Click to flip</div>
+                </div>
+            </div>
+            <div class="keyboard-hint">
+                Use ← (left arrow) for "Don't Know" and → (right arrow) for "Know It"
+            </div>
+            <div class="session-actions">
+                <button class="btn secondary" onclick="pauseSession()">Pause Session</button>
+                <button class="btn secondary" onclick="quitSession()">Quit Session</button>
+            </div>
+        </div>
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results">
+                <h2>Session Complete!</h2>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div id="known-count" class="stat-number">0</div>
+                        <div class="stat-label">Cards Mastered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div id="unknown-count" class="stat-number">0</div>
+                        <div class="stat-label">Cards to Review</div>
+                    </div>
+                    <div class="stat-item">
+                        <div id="session-time" class="stat-number">0m</div>
+                        <div class="stat-label">Study Time</div>
+                    </div>
+                </div>
+                <div>
+                    <button id="continue-btn" class="btn" onclick="continueWithMissed()" style="display: none;">Continue
+                        with Missed Cards</button>
+                    <button class="btn secondary" onclick="backToSelection()">New Session</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
-      // Global state
+        // Global state
         let flashcardData = null;
         let sessionState = {
             selectedCards: [],
@@ -457,16 +465,16 @@
                         "calculus": {
                             "name": "Calculus",
                             "cards": [
-                                {"front": "What is a derivative?", "back": "The rate of change of a function at a point"},
-                                {"front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation"},
-                                {"front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations"}
+                                { "front": "What is a derivative?", "back": "The rate of change of a function at a point" },
+                                { "front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation" },
+                                { "front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations" }
                             ]
                         },
                         "algebra": {
                             "name": "Algebra",
                             "cards": [
-                                {"front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0"},
-                                {"front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a"}
+                                { "front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0" },
+                                { "front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a" }
                             ]
                         }
                     }
@@ -477,15 +485,15 @@
                         "biology": {
                             "name": "Biology",
                             "cards": [
-                                {"front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy"},
-                                {"front": "What is mitosis?", "back": "The process of cell division that produces two identical cells"}
+                                { "front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy" },
+                                { "front": "What is mitosis?", "back": "The process of cell division that produces two identical cells" }
                             ]
                         },
                         "chemistry": {
                             "name": "Chemistry",
                             "cards": [
-                                {"front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element"},
-                                {"front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms"}
+                                { "front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element" },
+                                { "front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms" }
                             ]
                         }
                     }
@@ -494,7 +502,7 @@
         };
 
         // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             setupEventListeners();
             loadFlashcardsFromRepo();
         });
@@ -502,45 +510,46 @@
         // Load flashcards from repository
         async function loadFlashcardsFromRepo() {
             try {
-                const response = await fetch('./flashcards.json');
-                
+                const url = new URL('./flashcards.json', window.location.href);
+                console.log('Full URL:', url.href);
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const data = await response.json();
-                
+
                 if (!validateData(data)) {
                     throw new Error('Invalid data format in flashcards.json');
                 }
-                
+
                 flashcardData = data;
                 document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-                
+
                 // Show success message
                 const successMsg = document.createElement('div');
                 successMsg.className = 'success';
                 successMsg.textContent = 'Successfully loaded flashcards from repository!';
                 document.getElementById('selection-screen').insertBefore(successMsg, document.getElementById('selection-screen').firstChild);
-                
+
                 // Remove success message after 3 seconds
                 setTimeout(() => {
                     if (successMsg.parentNode) {
                         successMsg.parentNode.removeChild(successMsg);
                     }
                 }, 3000);
-                
+
                 renderSelectionTree();
                 checkForSavedSession();
                 showScreen('selection-screen');
-                
+
             } catch (error) {
                 console.error('Error loading flashcards.json:', error);
-                
+
                 // Fall back to sample data
                 flashcardData = sampleData;
                 document.getElementById('json-input').value = JSON.stringify(sampleData, null, 2);
-                
+
                 // Show error message
                 const errorMsg = document.createElement('div');
                 errorMsg.className = 'error';
@@ -549,7 +558,7 @@
                     <small>Loaded sample data instead. You can modify the JSON below or ensure flashcards.json exists in your repository.</small>
                 `;
                 document.getElementById('selection-screen').insertBefore(errorMsg, document.getElementById('selection-screen').firstChild);
-                
+
                 renderSelectionTree();
                 checkForSavedSession();
                 showScreen('selection-screen');
@@ -558,7 +567,7 @@
 
         function setupEventListeners() {
             // Keyboard events
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (sessionState.sessionActive) {
                     if (e.key === 'ArrowLeft') {
                         e.preventDefault();
@@ -578,12 +587,12 @@
             let touchStartY = 0;
             const flashcard = document.getElementById('flashcard');
 
-            flashcard.addEventListener('touchstart', function(e) {
+            flashcard.addEventListener('touchstart', function (e) {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
             });
 
-            flashcard.addEventListener('touchend', function(e) {
+            flashcard.addEventListener('touchend', function (e) {
                 if (!sessionState.sessionActive) return;
 
                 const touchEndX = e.changedTouches[0].clientX;
@@ -614,7 +623,7 @@
         function loadData() {
             const jsonInput = document.getElementById('json-input').value.trim();
             const errorMsg = document.getElementById('error-msg');
-            
+
             if (!jsonInput) {
                 showError('Please enter JSON data');
                 return;
@@ -626,23 +635,23 @@
                     showError('Invalid data format. Please check your JSON structure.');
                     return;
                 }
-                
+
                 renderSelectionTree();
                 errorMsg.style.display = 'none';
-                
+
                 // Show success message
                 const successMsg = document.createElement('div');
                 successMsg.className = 'success';
                 successMsg.textContent = 'Data loaded successfully!';
                 document.getElementById('selection-screen').insertBefore(successMsg, document.getElementById('selection-tree'));
-                
+
                 // Remove success message after 3 seconds
                 setTimeout(() => {
                     if (successMsg.parentNode) {
                         successMsg.parentNode.removeChild(successMsg);
                     }
                 }, 3000);
-                
+
             } catch (e) {
                 showError('Invalid JSON format: ' + e.message);
             }
@@ -660,10 +669,10 @@
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category';
-                
+
                 const categoryHeader = document.createElement('div');
                 categoryHeader.className = 'category-header';
-                
+
                 const categoryCheckbox = document.createElement('div');
                 categoryCheckbox.className = 'checkbox-item';
                 categoryCheckbox.innerHTML = `
@@ -671,7 +680,7 @@
                     <label for="cat-${categoryId}">${category.name}</label>
                     <span class="card-count">(${getTotalCards(category)} cards)</span>
                 `;
-                
+
                 categoryHeader.appendChild(categoryCheckbox);
                 categoryDiv.appendChild(categoryHeader);
 
@@ -707,7 +716,7 @@
         function toggleCategory(categoryId) {
             const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
             const isChecked = categoryCheckbox.checked;
-            
+
             // Toggle all subcategories
             const category = flashcardData.categories[categoryId];
             if (category.subcategories) {
@@ -716,7 +725,7 @@
                     subCheckbox.checked = isChecked;
                 }
             }
-            
+
             updateSelectionCount();
         }
 
@@ -724,18 +733,18 @@
             const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"][id^="sub-"]');
             const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
             const startBtn = document.getElementById('start-btn');
-            
+
             startBtn.disabled = selectedCount === 0;
-            
+
             // Update category checkboxes
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
                 if (category.subcategories) {
-                    const subCheckboxes = Object.keys(category.subcategories).map(subId => 
+                    const subCheckboxes = Object.keys(category.subcategories).map(subId =>
                         document.getElementById(`sub-${categoryId}-${subId}`)
                     );
                     const checkedSubs = subCheckboxes.filter(cb => cb.checked).length;
-                    
+
                     if (checkedSubs === 0) {
                         categoryCheckbox.checked = false;
                         categoryCheckbox.indeterminate = false;
@@ -765,7 +774,7 @@
         function startSession() {
             // Collect selected cards
             const selectedCards = [];
-            
+
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 if (category.subcategories) {
                     for (const [subId, subcategory] of Object.entries(category.subcategories)) {
@@ -776,12 +785,12 @@
                     }
                 }
             }
-            
+
             if (selectedCards.length === 0) {
                 showError('Please select at least one category');
                 return;
             }
-            
+
             // Initialize session
             sessionState.selectedCards = selectedCards;
             sessionState.currentQueue = shuffleArray([...selectedCards]);
@@ -792,7 +801,7 @@
             sessionState.stats = { known: 0, unknown: 0 };
             sessionState.knownCards = [];
             sessionState.unknownCards = [];
-            
+
             showScreen('session-screen');
             displayCurrentCard();
             saveSession();
@@ -804,11 +813,11 @@
             const cardFront = document.getElementById('card-front').querySelector('.card-content');
             const cardBack = document.getElementById('card-back').querySelector('.card-content');
             const flashcard = document.getElementById('flashcard');
-            
+
             progress.textContent = `Card ${sessionState.currentCardIndex + 1} of ${sessionState.currentQueue.length}`;
             cardFront.textContent = card.front;
             cardBack.textContent = card.back;
-            
+
             // Reset card to front
             sessionState.isFlipped = false;
             flashcard.classList.remove('flipped');
@@ -818,13 +827,13 @@
 
         function flipCard() {
             if (!sessionState.sessionActive) return;
-            
+
             const flashcard = document.getElementById('flashcard');
             const cardFront = document.getElementById('card-front');
             const cardBack = document.getElementById('card-back');
-            
+
             sessionState.isFlipped = !sessionState.isFlipped;
-            
+
             if (sessionState.isFlipped) {
                 flashcard.classList.add('flipped');
                 cardFront.classList.remove('active');
@@ -838,9 +847,9 @@
 
         function markCard(known) {
             if (!sessionState.sessionActive) return;
-            
+
             const currentCard = sessionState.currentQueue[sessionState.currentCardIndex];
-            
+
             if (known) {
                 sessionState.stats.known++;
                 sessionState.knownCards.push(currentCard);
@@ -853,40 +862,40 @@
                 const card = sessionState.currentQueue.splice(sessionState.currentCardIndex, 1)[0];
                 sessionState.currentQueue.push(card);
             }
-            
+
             // Check if session is complete
             if (sessionState.currentQueue.length === 0) {
                 completeSession();
                 return;
             }
-            
+
             // Adjust index if needed
             if (sessionState.currentCardIndex >= sessionState.currentQueue.length) {
                 sessionState.currentCardIndex = 0;
             }
-            
+
             displayCurrentCard();
             saveSession();
         }
 
         function completeSession() {
             sessionState.sessionActive = false;
-            
+
             const sessionTime = Math.floor((Date.now() - sessionState.startTime) / 1000 / 60);
             document.getElementById('known-count').textContent = sessionState.stats.known;
             document.getElementById('unknown-count').textContent = sessionState.stats.unknown;
             document.getElementById('session-time').textContent = sessionTime + 'm';
-            
+
             const continueBtn = document.getElementById('continue-btn');
             continueBtn.style.display = sessionState.unknownCards.length > 0 ? 'block' : 'none';
-            
+
             clearSession();
             showScreen('results-screen');
         }
 
         function continueWithMissed() {
             if (sessionState.unknownCards.length === 0) return;
-            
+
             sessionState.currentQueue = shuffleArray([...sessionState.unknownCards]);
             sessionState.currentCardIndex = 0;
             sessionState.isFlipped = false;
@@ -895,7 +904,7 @@
             sessionState.stats = { known: 0, unknown: 0 };
             sessionState.knownCards = [];
             sessionState.unknownCards = [];
-            
+
             showScreen('session-screen');
             displayCurrentCard();
             saveSession();
@@ -920,7 +929,7 @@
                     const session = JSON.parse(savedSession);
                     sessionState = { ...sessionState, ...session };
                     sessionState.sessionActive = true;
-                    
+
                     showScreen('session-screen');
                     displayCurrentCard();
                     document.getElementById('resume-prompt').style.display = 'none';
