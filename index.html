@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Study App</title>
-    <style>
+        <style>
         * {
             margin: 0;
             padding: 0;
@@ -309,7 +309,6 @@
 <body>
     <div class="container">
         <h1>Flashcard Study App</h1>
-        <!-- Selection Screen -->
         <div id="selection-screen" class="screen active">
             <div class="data-input">
                 <label for="json-input">Enter your flashcard data (JSON format):</label>
@@ -317,15 +316,12 @@
                     placeholder='{"categories": {"math": {"name": "Mathematics", "subcategories": {"calculus": {"name": "Calculus", "cards": [{"front": "What is a derivative?", "back": "Rate of change of a function"}]}}}}}'></textarea>
                 <button class="btn" onclick="loadData()">Load Data</button>
             </div>
-            <div id="resume-prompt" class="resume-prompt" style="display: none;">
-                <p>You have a saved session in progress. Would you like to resume it?</p>
-                <button class="btn" onclick="resumeSession()">Resume Session</button>
-                <button class="btn secondary" onclick="startFresh()">Start Fresh</button>
-            </div>
-            <div id="selection-tree" class="selection-tree" style="display: none;">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+            <div id="selection-tree" class="selection-tree" style="display: none;"></div>
             <div class="selection-controls">
+                <div class="shuffle-toggle">
+                    <input type="checkbox" id="shuffle-toggle" checked>
+                    <label for="shuffle-toggle">Shuffle Cards</label>
+                </div>
                 <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                 <button class="btn secondary" onclick="selectAll()">Select All</button>
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
@@ -333,7 +329,6 @@
             <div id="error-msg" class="error" style="display: none;"></div>
             <div id="loading-msg" class="loading" style="display: none;">Loading flashcards...</div>
         </div>
-        <!-- Session Screen -->
         <div id="session-screen" class="screen">
             <div class="session-header">
                 <div id="progress" class="progress">Card 1 of 10</div>
@@ -349,15 +344,7 @@
                     <div class="flip-hint">Click to flip</div>
                 </div>
             </div>
-            <div class="keyboard-hint">
-                Use ← (left arrow) for "Don't Know" and → (right arrow) for "Know It"
-            </div>
-            <div class="session-actions">
-                <button class="btn secondary" onclick="pauseSession()">Pause Session</button>
-                <button class="btn secondary" onclick="quitSession()">Quit Session</button>
-            </div>
         </div>
-        <!-- Results Screen -->
         <div id="results-screen" class="screen">
             <div class="results">
                 <h2>Session Complete!</h2>
@@ -395,12 +382,19 @@
             startTime: null,
             stats: { known: 0, unknown: 0 },
             knownCards: [],
-            unknownCards: []
+            unknownCards: [],
+            // New state variable for shuffle
+            shuffleEnabled: true 
         };
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
-            checkForSavedSession();
+            // Set initial state of shuffle toggle
+            document.getElementById('shuffle-toggle').checked = sessionState.shuffleEnabled;
+            // Add event listener for the shuffle toggle
+            document.getElementById('shuffle-toggle').addEventListener('change', function() {
+                sessionState.shuffleEnabled = this.checked;
+            });
             setupEventListeners();
             // Load flashcards.json from GitHub Pages
             loadFlashcardsFromGitHub();
@@ -434,53 +428,6 @@
                 console.error('Error loading flashcards.json:', error);
                 loadingMsg.style.display = 'none';
                 showError('Failed to load flashcards.json: ' + error.message + '. You can manually enter JSON data above.');
-
-                // Fallback to sample data
-                const sampleData = {
-                    "categories": {
-                        "math": {
-                            "name": "Mathematics",
-                            "subcategories": {
-                                "calculus": {
-                                    "name": "Calculus",
-                                    "cards": [
-                                        { "front": "What is a derivative?", "back": "The rate of change of a function at a point" },
-                                        { "front": "What is an integral?", "back": "The area under a curve or the reverse of differentiation" },
-                                        { "front": "What is the fundamental theorem of calculus?", "back": "Links differentiation and integration as inverse operations" }
-                                    ]
-                                },
-                                "algebra": {
-                                    "name": "Algebra",
-                                    "cards": [
-                                        { "front": "What is a quadratic equation?", "back": "An equation of the form ax² + bx + c = 0" },
-                                        { "front": "What is the quadratic formula?", "back": "x = (-b ± √(b²-4ac)) / 2a" }
-                                    ]
-                                }
-                            }
-                        },
-                        "science": {
-                            "name": "Science",
-                            "subcategories": {
-                                "biology": {
-                                    "name": "Biology",
-                                    "cards": [
-                                        { "front": "What is photosynthesis?", "back": "The process by which plants convert light energy into chemical energy" },
-                                        { "front": "What is mitosis?", "back": "The process of cell division that produces two identical cells" }
-                                    ]
-                                },
-                                "chemistry": {
-                                    "name": "Chemistry",
-                                    "cards": [
-                                        { "front": "What is an atom?", "back": "The smallest unit of matter that retains the properties of an element" },
-                                        { "front": "What is a covalent bond?", "back": "A chemical bond formed by sharing electrons between atoms" }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                };
-
-                document.getElementById('json-input').value = JSON.stringify(sampleData, null, 2);
             }
         }
 
@@ -529,14 +476,6 @@
                     }
                 }
             });
-        }
-
-        function checkForSavedSession() {
-            const savedSession = getCookie('flashcard_session');
-            if (savedSession) {
-                const resumePrompt = document.getElementById('resume-prompt');
-                resumePrompt.style.display = 'block';
-            }
         }
 
         function loadData() {
@@ -698,7 +637,8 @@
 
             // Initialize session
             sessionState.selectedCards = selectedCards;
-            sessionState.currentQueue = shuffleArray([...selectedCards]);
+            // Conditionally shuffle based on shuffleEnabled
+            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...selectedCards]) : [...selectedCards];
             sessionState.currentCardIndex = 0;
             sessionState.isFlipped = false;
             sessionState.sessionActive = true;
@@ -709,7 +649,6 @@
 
             showScreen('session-screen');
             displayCurrentCard();
-            saveSession();
         }
 
         function displayCurrentCard() {
@@ -780,7 +719,6 @@
             }
 
             displayCurrentCard();
-            saveSession();
         }
 
         function completeSession() {
@@ -801,7 +739,8 @@
         function continueWithMissed() {
             if (sessionState.unknownCards.length === 0) return;
 
-            sessionState.currentQueue = shuffleArray([...sessionState.unknownCards]);
+            // Conditionally shuffle based on shuffleEnabled
+            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...sessionState.unknownCards]) : [...sessionState.unknownCards];
             sessionState.currentCardIndex = 0;
             sessionState.isFlipped = false;
             sessionState.sessionActive = true;
@@ -812,36 +751,6 @@
 
             showScreen('session-screen');
             displayCurrentCard();
-            saveSession();
-        }
-
-        function pauseSession() {
-            sessionState.sessionActive = false;
-            saveSession();
-            showScreen('selection-screen');
-        }
-
-        function quitSession() {
-            sessionState.sessionActive = false;
-            clearSession();
-            showScreen('selection-screen');
-        }
-
-        function resumeSession() {
-            const savedSession = getCookie('flashcard_session');
-            if (savedSession) {
-                try {
-                    const session = JSON.parse(savedSession);
-                    sessionState = { ...sessionState, ...session };
-                    sessionState.sessionActive = true;
-
-                    showScreen('session-screen');
-                    displayCurrentCard();
-                    document.getElementById('resume-prompt').style.display = 'none';
-                } catch (e) {
-                    showError('Could not resume session: ' + e.message);
-                }
-            }
         }
 
         function startFresh() {
@@ -873,33 +782,6 @@
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
             return shuffled;
-        }
-
-        function saveSession() {
-            if (sessionState.sessionActive) {
-                setCookie('flashcard_session', JSON.stringify(sessionState), 7);
-            }
-        }
-
-        function clearSession() {
-            setCookie('flashcard_session', '', -1);
-        }
-
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-        }
-
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
         }
     </script>
 </body>
