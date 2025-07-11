@@ -29,9 +29,12 @@ function setupEventListeners() {
             } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
                 markCard(true);
-            } else if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                 e.preventDefault();
                 flipCard();
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                restartSession();
             }
         }
     });

@@ -14,32 +14,39 @@
     <div class="container">
         <h1>Flashcard Study App</h1>
         <div id="selection-screen" class="screen active">
-            <div class="selection-controls">
-                <div class="shuffle-toggle">
-                    <input type="checkbox" id="shuffle-toggle">
-                    <label for="shuffle-toggle">Shuffle</label>
-                </div>
-                <div class="range-controls">
-                    <div class="range-inputs">
-                        <label for="start-index">Start:</label>
-                        <input type="number" id="start-index" min="1" value="1">
-                        <label for="stop-index">Stop:</label>
-                        <input type="number" id="stop-index" min="1" value="">
-                        <label for="skip-interval">Skip:</label>
-                        <input type="number" id="skip-interval" min="1" value="1">
+            <div class="main-content">
+                <div class="selection-controls">
+                    <div class="range-controls">
+                        <div>
+                            <label for="start-index">Start:</label>
+                            <input type="number" id="start-index" min="1" value="1">
+                        </div>
+                        <div>
+                            <label for="stop-index">Stop:</label>
+                            <input type="number" id="stop-index" min="1" value="">
+                        </div>
+                        <div>
+                            <label for="skip-interval">Skip:</label>
+                            <input type="number" id="skip-interval" min="1" value="1">
+                        </div>
+                        <div>
+                            <label for="shuffle-toggle">Shuffle</label>
+                            <input type="checkbox" id="shuffle-toggle">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn secondary" onclick="selectAll()">Select All</button>
+                        <button class="btn secondary" onclick="clearAll()">Clear All</button>
+                        <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                     </div>
                 </div>
-                <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
-                <button class="btn secondary" onclick="selectAll()">Select All</button>
-                <button class="btn secondary" onclick="clearAll()">Clear All</button>
+                <div id="selection-tree" class="selection-tree"></div>
             </div>
-            <div id="selection-tree" class="selection-tree"></div>
-            <div id="error-msg" class="error"></div>
+            <div id="error-msg" class="error">This is an error message that pops up at the bottom</div>
         </div>
         <div id="session-screen" class="screen">
             <div class="session-header">
                 <div id="progress" class="progress">Card 1 of 10</div>
-                <button class="btn secondary" onclick="restartSession()">Restart</button>
             </div>
             <div class="card-container">
                 <div id="flashcard" class="flashcard" onclick="flipCard()">
@@ -50,6 +57,10 @@
                         <div class="card-content"></div>
                     </div>
                 </div>
+            </div>
+            <div class="session-footer">
+                <button class="btn secondary" onclick="restartSession()">Restart</button>
+                <button class="btn secondary" onclick="backToSelection()">New Session</button>
             </div>
         </div>
         <div id="results-screen" class="screen">
@@ -182,4 +193,5 @@
 
     </script>
 </body>
+
 </html>
