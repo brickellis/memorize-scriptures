@@ -12,6 +12,14 @@ body {
     padding: 20px;
 }
 
+.selection-tree {
+    display: none;
+}
+
+.error {
+    display: none;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -158,11 +166,6 @@ h1 {
 
 .flashcard:hover {
     transform: translateY(-2px);
-}
-
-.flashcard.flipped {
-    background: #ecf0f1;
-    border-color: #3498db;
 }
 
 .card-content {

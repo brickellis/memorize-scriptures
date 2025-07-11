@@ -6,31 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Study App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+    <script src="script.js"></script>
 </head>
 
 <body>
     <div class="container">
         <h1>Flashcard Study App</h1>
         <div id="selection-screen" class="screen active">
-            <div class="data-input">
-                <label for="json-input">Enter your flashcard data (JSON format):</label>
-                <textarea id="json-input"
-                    placeholder='{"categories": {"math": {"name": "Mathematics", "subcategories": {"calculus": {"name": "Calculus", "cards": [{"front": "What is a derivative?", "back": "Rate of change of a function"}]}}}}}'></textarea>
-                <button class="btn" onclick="loadData()">Load Data</button>
-            </div>
             <div class="selection-controls">
                 <div class="shuffle-toggle">
-                    <input type="checkbox" id="shuffle-toggle" checked>
-                    <label for="shuffle-toggle">Shuffle Cards</label>
+                    <input type="checkbox" id="shuffle-toggle">
+                    <label for="shuffle-toggle">Shuffle</label>
                 </div>
                 <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                 <button class="btn secondary" onclick="selectAll()">Select All</button>
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
             </div>
-            <div id="selection-tree" class="selection-tree" style="display: none;"></div>
-
-            <div id="error-msg" class="error" style="display: none;"></div>
-            <div id="loading-msg" class="loading" style="display: none;">Loading flashcards...</div>
+            <div id="selection-tree" class="selection-tree"></div>
+            <div id="error-msg" class="error"></div>
         </div>
         <div id="session-screen" class="screen">
             <div class="session-header">
@@ -45,7 +39,6 @@
                     <div id="card-back" class="card-side">
                         <div class="card-content"></div>
                     </div>
-                    <div class="flip-hint">Click to flip</div>
                 </div>
             </div>
         </div>
@@ -76,139 +69,26 @@
         </div>
     </div>
     <script>
-        // Global state
         let flashcardData = null;
         let sessionState = {
             selectedCards: [],
-            currentQueue: [],
-            currentCardIndex: 0,
+            remainingCards: [],
+            knownCards: [],
+            unknownCards: [],
             isFlipped: false,
             sessionActive: false,
             startTime: null,
-            stats: { known: 0, unknown: 0 },
-            knownCards: [],
-            unknownCards: [],
-            // New state variable for shuffle
-            shuffleEnabled: true
+            shuffleEnabled: false
         };
 
-        // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
-            // Set initial state of shuffle toggle
             document.getElementById('shuffle-toggle').checked = sessionState.shuffleEnabled;
-            // Add event listener for the shuffle toggle
             document.getElementById('shuffle-toggle').addEventListener('change', function () {
                 sessionState.shuffleEnabled = this.checked;
             });
             setupEventListeners();
-            // Load flashcards.json from GitHub Pages
             loadFlashcardsFromGitHub();
         });
-
-        async function loadFlashcardsFromGitHub() {
-            const loadingMsg = document.getElementById('loading-msg');
-            const errorMsg = document.getElementById('error-msg');
-
-            try {
-                loadingMsg.style.display = 'block';
-                errorMsg.style.display = 'none';
-
-                const response = await fetch('./flashcards.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                if (!validateData(data)) {
-                    throw new Error('Invalid data format in flashcards.json');
-                }
-
-                flashcardData = data;
-                document.getElementById('json-input').value = JSON.stringify(data, null, 2);
-                renderSelectionTree();
-                loadingMsg.style.display = 'none';
-
-            } catch (error) {
-                console.error('Error loading flashcards.json:', error);
-                loadingMsg.style.display = 'none';
-                showError('Failed to load flashcards.json: ' + error.message + '. You can manually enter JSON data above.');
-            }
-        }
-
-        function setupEventListeners() {
-            // Keyboard events
-            document.addEventListener('keydown', function (e) {
-                if (sessionState.sessionActive) {
-                    if (e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        markCard(false);
-                    } else if (e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        markCard(true);
-                    } else if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        flipCard();
-                    }
-                }
-            });
-
-            // Touch events for swipe
-            let touchStartX = 0;
-            let touchStartY = 0;
-            const flashcard = document.getElementById('flashcard');
-
-            flashcard.addEventListener('touchstart', function (e) {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-            });
-
-            flashcard.addEventListener('touchend', function (e) {
-                if (!sessionState.sessionActive) return;
-
-                const touchEndX = e.changedTouches[0].clientX;
-                const touchEndY = e.changedTouches[0].clientY;
-                const diffX = touchEndX - touchStartX;
-                const diffY = touchEndY - touchStartY;
-
-                // Check if it's a horizontal swipe (not vertical)
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                    e.preventDefault();
-                    if (diffX > 0) {
-                        markCard(true); // Swipe right = know it
-                    } else {
-                        markCard(false); // Swipe left = don't know
-                    }
-                }
-            });
-        }
-
-        function loadData() {
-            const jsonInput = document.getElementById('json-input').value.trim();
-            const errorMsg = document.getElementById('error-msg');
-
-            if (!jsonInput) {
-                showError('Please enter JSON data');
-                return;
-            }
-
-            try {
-                flashcardData = JSON.parse(jsonInput);
-                if (!validateData(flashcardData)) {
-                    showError('Invalid data format. Please check your JSON structure.');
-                    return;
-                }
-
-                renderSelectionTree();
-                errorMsg.style.display = 'none';
-            } catch (e) {
-                showError('Invalid JSON format: ' + e.message);
-            }
-        }
-
-        function validateData(data) {
-            return data && data.categories && typeof data.categories === 'object';
-        }
 
         function renderSelectionTree() {
             const tree = document.getElementById('selection-tree');
@@ -247,81 +127,11 @@
                         categoryDiv.appendChild(subDiv);
                     }
                 }
-
                 tree.appendChild(categoryDiv);
             }
         }
 
-        function getTotalCards(category) {
-            let total = 0;
-            if (category.subcategories) {
-                for (const sub of Object.values(category.subcategories)) {
-                    total += sub.cards ? sub.cards.length : 0;
-                }
-            }
-            return total;
-        }
-
-        function toggleCategory(categoryId) {
-            const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
-            const isChecked = categoryCheckbox.checked;
-
-            // Toggle all subcategories
-            const category = flashcardData.categories[categoryId];
-            if (category.subcategories) {
-                for (const subId of Object.keys(category.subcategories)) {
-                    const subCheckbox = document.getElementById(`sub-${categoryId}-${subId}`);
-                    subCheckbox.checked = isChecked;
-                }
-            }
-
-            updateSelectionCount();
-        }
-
-        function updateSelectionCount() {
-            const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"][id^="sub-"]');
-            const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-            const startBtn = document.getElementById('start-btn');
-
-            startBtn.disabled = selectedCount === 0;
-
-            // Update category checkboxes
-            for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
-                const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
-                if (category.subcategories) {
-                    const subCheckboxes = Object.keys(category.subcategories).map(subId =>
-                        document.getElementById(`sub-${categoryId}-${subId}`)
-                    );
-                    const checkedSubs = subCheckboxes.filter(cb => cb.checked).length;
-
-                    if (checkedSubs === 0) {
-                        categoryCheckbox.checked = false;
-                        categoryCheckbox.indeterminate = false;
-                    } else if (checkedSubs === subCheckboxes.length) {
-                        categoryCheckbox.checked = true;
-                        categoryCheckbox.indeterminate = false;
-                    } else {
-                        categoryCheckbox.checked = false;
-                        categoryCheckbox.indeterminate = true;
-                    }
-                }
-            }
-        }
-
-        function selectAll() {
-            const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.checked = true);
-            updateSelectionCount();
-        }
-
-        function clearAll() {
-            const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.checked = false);
-            updateSelectionCount();
-        }
-
         function startSession() {
-            // Collect selected cards
             const selectedCards = [];
 
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
@@ -340,167 +150,27 @@
                 return;
             }
 
-            // Initialize session
             sessionState.selectedCards = selectedCards;
-            // Conditionally shuffle based on shuffleEnabled
-            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...selectedCards]) : [...selectedCards];
-            sessionState.currentCardIndex = 0;
-            sessionState.isFlipped = false;
-            sessionState.sessionActive = true;
-            sessionState.startTime = Date.now();
-            sessionState.stats = { known: 0, unknown: 0 };
-            sessionState.knownCards = [];
-            sessionState.unknownCards = [];
 
+            setSessionState();
             showScreen('session-screen');
             displayCurrentCard();
         }
 
         function displayCurrentCard() {
-            const card = sessionState.currentQueue[sessionState.currentCardIndex];
+            const currentCard = sessionState.remainingCards[0];
             const progress = document.getElementById('progress');
             const cardFront = document.getElementById('card-front').querySelector('.card-content');
             const cardBack = document.getElementById('card-back').querySelector('.card-content');
-            const flashcard = document.getElementById('flashcard');
 
-            progress.textContent = `Card ${sessionState.currentCardIndex + 1} of ${sessionState.currentQueue.length}`;
-            cardFront.textContent = card.front;
-            cardBack.textContent = card.back;
+            progress.textContent = `${sessionState.remainingCards.length} Cards Remaining`;
+            cardFront.textContent = currentCard.front;
+            cardBack.textContent = currentCard.back;
 
-            // Reset card to front
             sessionState.isFlipped = false;
-            flashcard.classList.remove('flipped');
             document.getElementById('card-front').classList.add('active');
             document.getElementById('card-back').classList.remove('active');
         }
-
-        function flipCard() {
-            if (!sessionState.sessionActive) return;
-
-            const flashcard = document.getElementById('flashcard');
-            const cardFront = document.getElementById('card-front');
-            const cardBack = document.getElementById('card-back');
-
-            sessionState.isFlipped = !sessionState.isFlipped;
-
-            if (sessionState.isFlipped) {
-                flashcard.classList.add('flipped');
-                cardFront.classList.remove('active');
-                cardBack.classList.add('active');
-            } else {
-                flashcard.classList.remove('flipped');
-                cardFront.classList.add('active');
-                cardBack.classList.remove('active');
-            }
-        }
-
-        function markCard(known) {
-            if (!sessionState.sessionActive) return;
-
-            const currentCard = sessionState.currentQueue[sessionState.currentCardIndex];
-
-            if (known) {
-                sessionState.stats.known++;
-                sessionState.knownCards.push(currentCard);
-                // Remove from queue
-                sessionState.currentQueue.splice(sessionState.currentCardIndex, 1);
-            } else {
-                sessionState.stats.unknown++;
-                sessionState.unknownCards.push(currentCard);
-                // Move to end of queue
-                const card = sessionState.currentQueue.splice(sessionState.currentCardIndex, 1)[0];
-                sessionState.currentQueue.push(card);
-            }
-
-            // Check if session is complete
-            if (sessionState.currentQueue.length === 0) {
-                completeSession();
-                return;
-            }
-
-            // Adjust index if needed
-            if (sessionState.currentCardIndex >= sessionState.currentQueue.length) {
-                sessionState.currentCardIndex = 0;
-            }
-
-            displayCurrentCard();
-        }
-
-        function completeSession() {
-            sessionState.sessionActive = false;
-
-            const sessionTime = Math.floor((Date.now() - sessionState.startTime) / 1000 / 60);
-            document.getElementById('known-count').textContent = sessionState.stats.known;
-            document.getElementById('unknown-count').textContent = sessionState.stats.unknown;
-            document.getElementById('session-time').textContent = sessionTime + 'm';
-
-            const continueBtn = document.getElementById('continue-btn');
-            continueBtn.style.display = sessionState.unknownCards.length > 0 ? 'block' : 'none';
-
-            showScreen('results-screen');
-        }
-
-        function continueWithMissed() {
-            if (sessionState.unknownCards.length === 0) return;
-
-            // Conditionally shuffle based on shuffleEnabled
-            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...sessionState.unknownCards]) : [...sessionState.unknownCards];
-            sessionState.currentCardIndex = 0;
-            sessionState.isFlipped = false;
-            sessionState.sessionActive = true;
-            sessionState.startTime = Date.now();
-            sessionState.stats = { known: 0, unknown: 0 };
-            sessionState.knownCards = [];
-            sessionState.unknownCards = [];
-
-            showScreen('session-screen');
-            displayCurrentCard();
-        }
-
-        function restartSession() {
-            sessionState.currentQueue = sessionState.shuffleEnabled ? shuffleArray([...sessionState.selectedCards]) : [...sessionState.selectedCards];
-            sessionState.currentCardIndex = 0;
-            sessionState.isFlipped = false;
-            sessionState.sessionActive = true;
-            sessionState.startTime = Date.now();
-            sessionState.stats = { known: 0, unknown: 0 };
-            sessionState.knownCards = [];
-            sessionState.unknownCards = [];
-
-            showScreen('session-screen');
-            displayCurrentCard();
-        }
-
-        function startFresh() {
-            document.getElementById('resume-prompt').style.display = 'none';
-        }
-
-        function backToSelection() {
-            showScreen('selection-screen');
-        }
-
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
-
-        function showError(message) {
-            const errorMsg = document.getElementById('error-msg');
-            errorMsg.textContent = message;
-            errorMsg.style.display = 'block';
-        }
-
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
     </script>
 </body>
-
 </html>
