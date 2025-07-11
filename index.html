@@ -157,20 +157,6 @@
             displayCurrentCard();
         }
 
-        function displayCurrentCard() {
-            const currentCard = sessionState.remainingCards[0];
-            const progress = document.getElementById('progress');
-            const cardFront = document.getElementById('card-front').querySelector('.card-content');
-            const cardBack = document.getElementById('card-back').querySelector('.card-content');
-
-            progress.textContent = `${sessionState.remainingCards.length} Cards Remaining`;
-            cardFront.textContent = currentCard.front;
-            cardBack.textContent = currentCard.back;
-
-            sessionState.isFlipped = false;
-            document.getElementById('card-front').classList.add('active');
-            document.getElementById('card-back').classList.remove('active');
-        }
     </script>
 </body>
 </html>
