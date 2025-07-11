@@ -252,7 +252,8 @@ function displayCurrentCard() {
 function getCardsWithRange(cards, startIndex, stopIndex, maxSize, skipInterval) {
     const selectedCards = [];
     const totalCards = cards.length;
-    if (!stopIndex) stopIndex = totalCards;
+    if (!stopIndex) stopIndex = totalCards + 100;
+    if (!maxSize) maxSize = totalCards + 100;
 
     let currentIndex = startIndex - 1;
 

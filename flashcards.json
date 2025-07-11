@@ -3,271 +3,6 @@
     "Old Testament": {
       "name": "Old Testament",
       "subcategories": {
-        "Book summaries": {
-          "name": "Book summaries",
-          "cards": [
-            {
-              "front": "Book summaries Genesis",
-              "back": "In the Beginning God Created the Heaven and the Earth and Man"
-            },
-            {
-              "front": "Book summaries Exodus",
-              "back": "From Egypt’s Bondage to Sinai’s Ten Commandments"
-            },
-            {
-              "front": "Book summaries Leviticus",
-              "back": "Handbook of Worship For Priests"
-            },
-            {
-              "front": "Book summaries Numbers",
-              "back": "The Wilderness Journey of Israel to Canaan"
-            },
-            {
-              "front": "Book summaries Deuteronomy",
-              "back": "Repeating the Law for Israel’s Obedience"
-            },
-            {
-              "front": "Book summaries Joshua",
-              "back": "Promised Land Means Victory"
-            },
-            {
-              "front": "Book summaries Judges",
-              "back": "The Judges of God’s People"
-            },
-            {
-              "front": "Book summaries Ruth",
-              "back": "Ruth"
-            },
-            {
-              "front": "Book summaries 1 Samuel",
-              "back": "Birth of Samuel Through David’s Exile"
-            },
-            {
-              "front": "Book summaries 2 Samuel",
-              "back": "History of the Reign of David"
-            },
-            {
-              "front": "Book summaries 1 Kings",
-              "back": "Solomon Sins, Israel Split"
-            },
-            {
-              "front": "Book summaries 1 Chronicles",
-              "back": "Death of Saul Through David’s Reign"
-            },
-            {
-              "front": "Book summaries 2 Chronicles",
-              "back": "Reign of Solomon Through the Kings of Judah"
-            },
-            {
-              "front": "Book summaries Ezra",
-              "back": "Temple Work"
-            },
-            {
-              "front": "Book summaries Nehemiah",
-              "back": "Jerusalem Wall"
-            },
-            {
-              "front": "Book summaries Esther",
-              "back": "Purim Feast"
-            },
-            {
-              "front": "Book summaries Job",
-              "back": "Job God’s Suffering Servant is Tested and Restored"
-            },
-            {
-              "front": "Book summaries Psalms",
-              "back": "Praise Him"
-            },
-            {
-              "front": "Book summaries Proverbs",
-              "back": "Understanding and Using God’s Wisdom"
-            },
-            {
-              "front": "Book summaries Ecclesiastes",
-              "back": "Ecclesiastes"
-            },
-            {
-              "front": "Book summaries Song of Solomon",
-              "back": "The Bride"
-            },
-            {
-              "front": "Book summaries Isaiah",
-              "back": "The Prophecies of Isaiah Concerning the Judgment and Redemption of Jerusalem"
-            },
-            {
-              "front": "Book summaries Jeremiah",
-              "back": "Prophecies of Jeremiah on the Captivity and Fall of Jerusalem"
-            },
-            {
-              "front": "Book summaries Lamentations",
-              "back": "Dirge"
-            },
-            {
-              "front": "Book summaries Ezekiel",
-              "back": "The Prophecies of Ezekiel About Jerusalem and the Temple"
-            },
-            {
-              "front": "Book summaries Daniel",
-              "back": "Daniel's Faith"
-            },
-            {
-              "front": "Book summaries Hosea",
-              "back": "Gomer the Harlot"
-            },
-            {
-              "front": "Book summaries Joel",
-              "back": "Cry"
-            },
-            {
-              "front": "Book summaries Amos",
-              "back": "Judgments"
-            },
-            {
-              "front": "Book summaries Obadiah",
-              "back": "Esau"
-            },
-            {
-              "front": "Book summaries Jonah",
-              "back": "Fish"
-            },
-            {
-              "front": "Book summaries Micah",
-              "back": "Messiah"
-            },
-            {
-              "front": "Book summaries Nahum",
-              "back": "God"
-            },
-            {
-              "front": "Book summaries Habakkuk",
-              "back": "Why"
-            },
-            {
-              "front": "Book summaries Zephaniah",
-              "back": "Jew"
-            },
-            {
-              "front": "Book summaries Haggai",
-              "back": "Go"
-            },
-            {
-              "front": "Book summaries Zechariah",
-              "back": "Messiahs Return"
-            },
-            {
-              "front": "Book summaries Malachi",
-              "back": "Lord"
-            },
-            {
-              "front": "Book summaries Matthew",
-              "back": "Gospel of Matthew, King of the Jews"
-            },
-            {
-              "front": "Book summaries Mark",
-              "back": "Christ the Servant"
-            },
-            {
-              "front": "Book summaries Luke",
-              "back": "Jesus Christ the Perfect Man"
-            },
-            {
-              "front": "Book summaries John",
-              "back": "John the Gospel of Belief"
-            },
-            {
-              "front": "Book summaries Acts",
-              "back": "Holy Spirit Working in the Church"
-            },
-            {
-              "front": "Book summaries Romans",
-              "back": "The Gospel of Jesus"
-            },
-            {
-              "front": "Book summaries 1 Corinthians",
-              "back": "Errors in Behavior"
-            },
-            {
-              "front": "Book summaries 2 Corinthians",
-              "back": "The True Gospel"
-            },
-            {
-              "front": "Book summaries Galatians",
-              "back": "The Law"
-            },
-            {
-              "front": "Book summaries Ephesians",
-              "back": "Church"
-            },
-            {
-              "front": "Book summaries Philippians",
-              "back": "Joys"
-            },
-            {
-              "front": "Book summaries Colossians",
-              "back": "Hope"
-            },
-            {
-              "front": "Book summaries 1 Thessalonians",
-              "back": "Faith"
-            },
-            {
-              "front": "Book summaries 2 Thessalonians",
-              "back": "Day"
-            },
-            {
-              "front": "Book summaries 1 Timothy",
-              "back": "Advice"
-            },
-            {
-              "front": "Book summaries 2 Timothy",
-              "back": "Hold"
-            },
-            {
-              "front": "Book summaries Titus",
-              "back": "Son"
-            },
-            {
-              "front": "Book summaries Philemon",
-              "back": "Love"
-            },
-            {
-              "front": "Book summaries Hebrews",
-              "back": "New Priesthood"
-            },
-            {
-              "front": "Book summaries James",
-              "back": "Works"
-            },
-            {
-              "front": "Book summaries 1 Peter",
-              "back": "Trial"
-            },
-            {
-              "front": "Book summaries 2 Peter",
-              "back": "Add"
-            },
-            {
-              "front": "Book summaries 1 John",
-              "back": "Light"
-            },
-            {
-              "front": "Book summaries 2 John",
-              "back": "Lady"
-            },
-            {
-              "front": "Book summaries 3 John",
-              "back": "Gaius"
-            },
-            {
-              "front": "Book summaries Jude",
-              "back": "Jude"
-            },
-            {
-              "front": "Book summaries Revelation",
-              "back": "Prophecy About the Future"
-            }
-          ]
-        },
         "Genesis": {
           "name": "Genesis",
           "cards": [
@@ -5787,6 +5522,646 @@
             {
               "front": "Moroni 10",
               "back": "A testimony of the Book of Mormon comes by the power of the Holy Ghost– The gifts of the Spirit are dispensed to the faithful– Spiritual gifts always accompany faith– Moroni’s words speak from the dust– Come unto Christ, be perfected in him, and sanctify your souls. About A.D. 421"
+            }
+          ]
+        }
+      }
+    },
+    "Miscellaneous": {
+      "name": "Miscellaneous",
+      "subcategories": {
+        "Book Summaries": {
+          "name": "Book Summaries",
+          "cards": [
+            {
+              "front": "Genesis Summary",
+              "back": "In the Beginning God Created the Heaven and the Earth and Man"
+            },
+            {
+              "front": "Exodus Summary",
+              "back": "From Egypt’s Bondage to Sinai’s Ten Commandments"
+            },
+            {
+              "front": "Leviticus Summary",
+              "back": "Handbook of Worship For Priests"
+            },
+            {
+              "front": "Numbers Summary",
+              "back": "The Wilderness Journey of Israel to Canaan"
+            },
+            {
+              "front": "Deuteronomy Summary",
+              "back": "Repeating the Law for Israel’s Obedience"
+            },
+            {
+              "front": "Joshua Summary",
+              "back": "Promised Land Means Victory"
+            },
+            {
+              "front": "Judges Summary",
+              "back": "The Judges of God’s People"
+            },
+            {
+              "front": "Ruth Summary",
+              "back": "Ruth"
+            },
+            {
+              "front": "1 Samuel Summary",
+              "back": "Birth of Samuel Through David’s Exile"
+            },
+            {
+              "front": "2 Samuel Summary",
+              "back": "History of the Reign of David"
+            },
+            {
+              "front": "1 Kings Summary",
+              "back": "Solomon Sins, Israel Split"
+            },
+            {
+              "front": "1 Chronicles Summary",
+              "back": "Death of Saul Through David’s Reign"
+            },
+            {
+              "front": "2 Chronicles Summary",
+              "back": "Reign of Solomon Through the Kings of Judah"
+            },
+            {
+              "front": "Ezra Summary",
+              "back": "Temple Work"
+            },
+            {
+              "front": "Nehemiah Summary",
+              "back": "Jerusalem Wall"
+            },
+            {
+              "front": "Esther Summary",
+              "back": "Purim Feast"
+            },
+            {
+              "front": "Job Summary",
+              "back": "Job God’s Suffering Servant is Tested and Restored"
+            },
+            {
+              "front": "Psalms Summary",
+              "back": "Praise Him"
+            },
+            {
+              "front": "Proverbs Summary",
+              "back": "Understanding and Using God’s Wisdom"
+            },
+            {
+              "front": "Ecclesiastes Summary",
+              "back": "Ecclesiastes"
+            },
+            {
+              "front": "Song of Solomon Summary",
+              "back": "The Bride"
+            },
+            {
+              "front": "Isaiah Summary",
+              "back": "The Prophecies of Isaiah Concerning the Judgment and Redemption of Jerusalem"
+            },
+            {
+              "front": "Jeremiah Summary",
+              "back": "Prophecies of Jeremiah on the Captivity and Fall of Jerusalem"
+            },
+            {
+              "front": "Lamentations Summary",
+              "back": "Dirge"
+            },
+            {
+              "front": "Ezekiel Summary",
+              "back": "The Prophecies of Ezekiel About Jerusalem and the Temple"
+            },
+            {
+              "front": "Daniel Summary",
+              "back": "Daniel's Faith"
+            },
+            {
+              "front": "Hosea Summary",
+              "back": "Gomer the Harlot"
+            },
+            {
+              "front": "Joel Summary",
+              "back": "Cry"
+            },
+            {
+              "front": "Amos Summary",
+              "back": "Judgments"
+            },
+            {
+              "front": "Obadiah Summary",
+              "back": "Esau"
+            },
+            {
+              "front": "Jonah Summary",
+              "back": "Fish"
+            },
+            {
+              "front": "Micah Summary",
+              "back": "Messiah"
+            },
+            {
+              "front": "Nahum Summary",
+              "back": "God"
+            },
+            {
+              "front": "Habakkuk Summary",
+              "back": "Why"
+            },
+            {
+              "front": "Zephaniah Summary",
+              "back": "Jew"
+            },
+            {
+              "front": "Haggai Summary",
+              "back": "Go"
+            },
+            {
+              "front": "Zechariah Summary",
+              "back": "Messiahs Return"
+            },
+            {
+              "front": "Malachi Summary",
+              "back": "Lord"
+            },
+            {
+              "front": "Matthew Summary",
+              "back": "Gospel of Matthew, King of the Jews"
+            },
+            {
+              "front": "Mark Summary",
+              "back": "Christ the Servant"
+            },
+            {
+              "front": "Luke Summary",
+              "back": "Jesus Christ the Perfect Man"
+            },
+            {
+              "front": "John Summary",
+              "back": "John the Gospel of Belief"
+            },
+            {
+              "front": "Acts Summary",
+              "back": "Holy Spirit Working in the Church"
+            },
+            {
+              "front": "Romans Summary",
+              "back": "The Gospel of Jesus"
+            },
+            {
+              "front": "1 Corinthians Summary",
+              "back": "Errors in Behavior"
+            },
+            {
+              "front": "2 Corinthians Summary",
+              "back": "The True Gospel"
+            },
+            {
+              "front": "Galatians Summary",
+              "back": "The Law"
+            },
+            {
+              "front": "Ephesians Summary",
+              "back": "Church"
+            },
+            {
+              "front": "Philippians Summary",
+              "back": "Joys"
+            },
+            {
+              "front": "Colossians Summary",
+              "back": "Hope"
+            },
+            {
+              "front": "1 Thessalonians Summary",
+              "back": "Faith"
+            },
+            {
+              "front": "2 Thessalonians Summary",
+              "back": "Day"
+            },
+            {
+              "front": "1 Timothy Summary",
+              "back": "Advice"
+            },
+            {
+              "front": "2 Timothy Summary",
+              "back": "Hold"
+            },
+            {
+              "front": "Titus Summary",
+              "back": "Son"
+            },
+            {
+              "front": "Philemon Summary",
+              "back": "Love"
+            },
+            {
+              "front": "Hebrews Summary",
+              "back": "New Priesthood"
+            },
+            {
+              "front": "James Summary",
+              "back": "Works"
+            },
+            {
+              "front": "1 Peter Summary",
+              "back": "Trial"
+            },
+            {
+              "front": "2 Peter Summary",
+              "back": "Add"
+            },
+            {
+              "front": "1 John Summary",
+              "back": "Light"
+            },
+            {
+              "front": "2 John Summary",
+              "back": "Lady"
+            },
+            {
+              "front": "3 John Summary",
+              "back": "Gaius"
+            },
+            {
+              "front": "Jude Summary",
+              "back": "Jude"
+            },
+            {
+              "front": "Revelation Summary",
+              "back": "Prophecy About the Future"
+            }
+          ]
+        },
+        "Which Book is Next?": {
+          "name": "Which Book is Next?",
+          "cards": [
+            {
+              "front": "What's after Genesis",
+              "back": "Exodus"
+            },
+            {
+              "front": "What's after Exodus",
+              "back": "Leviticus"
+            },
+            {
+              "front": "What's after Leviticus",
+              "back": "Numbers"
+            },
+            {
+              "front": "What's after Numbers",
+              "back": "Deuteronomy"
+            },
+            {
+              "front": "What's after Deuteronomy",
+              "back": "Joshua"
+            },
+            {
+              "front": "What's after Joshua",
+              "back": "Judges"
+            },
+            {
+              "front": "What's after Judges",
+              "back": "Ruth"
+            },
+            {
+              "front": "What's after Ruth",
+              "back": "1 Samuel"
+            },
+            {
+              "front": "What's after 1 Samuel",
+              "back": "2 Samuel"
+            },
+            {
+              "front": "What's after 2 Samuel",
+              "back": "1 Kings"
+            },
+            {
+              "front": "What's after 1 Kings",
+              "back": "2 Kings"
+            },
+            {
+              "front": "What's after 2 Kings",
+              "back": "1 Chronicles"
+            },
+            {
+              "front": "What's after 1 Chronicles",
+              "back": "2 Chronicles"
+            },
+            {
+              "front": "What's after 2 Chronicles",
+              "back": "Ezra"
+            },
+            {
+              "front": "What's after Ezra",
+              "back": "Nehemiah"
+            },
+            {
+              "front": "What's after Nehemiah",
+              "back": "Esther"
+            },
+            {
+              "front": "What's after Esther",
+              "back": "Job"
+            },
+            {
+              "front": "What's after Job",
+              "back": "Psalms"
+            },
+            {
+              "front": "What's after Psalms",
+              "back": "Proverbs"
+            },
+            {
+              "front": "What's after Proverbs",
+              "back": "Ecclesiastes"
+            },
+            {
+              "front": "What's after Ecclesiastes",
+              "back": "Song of Solomon"
+            },
+            {
+              "front": "What's after Song of Solomon",
+              "back": "Isaiah"
+            },
+            {
+              "front": "What's after Isaiah",
+              "back": "Jeremiah"
+            },
+            {
+              "front": "What's after Jeremiah",
+              "back": "Lamentations"
+            },
+            {
+              "front": "What's after Lamentations",
+              "back": "Ezekiel"
+            },
+            {
+              "front": "What's after Ezekiel",
+              "back": "Daniel"
+            },
+            {
+              "front": "What's after Daniel",
+              "back": "Hosea"
+            },
+            {
+              "front": "What's after Hosea",
+              "back": "Joel"
+            },
+            {
+              "front": "What's after Joel",
+              "back": "Amos"
+            },
+            {
+              "front": "What's after Amos",
+              "back": "Obadiah"
+            },
+            {
+              "front": "What's after Obadiah",
+              "back": "Jonah"
+            },
+            {
+              "front": "What's after Jonah",
+              "back": "Micah"
+            },
+            {
+              "front": "What's after Micah",
+              "back": "Nahum"
+            },
+            {
+              "front": "What's after Nahum",
+              "back": "Habakkuk"
+            },
+            {
+              "front": "What's after Habakkuk",
+              "back": "Zephaniah"
+            },
+            {
+              "front": "What's after Zephaniah",
+              "back": "Haggai"
+            },
+            {
+              "front": "What's after Haggai",
+              "back": "Zechariah"
+            },
+            {
+              "front": "What's after Zechariah",
+              "back": "Malachi"
+            },
+            {
+              "front": "What's after Malachi",
+              "back": "Matthew"
+            },
+            {
+              "front": "What's after Matthew",
+              "back": "Mark"
+            },
+            {
+              "front": "What's after Mark",
+              "back": "Luke"
+            },
+            {
+              "front": "What's after Luke",
+              "back": "John"
+            },
+            {
+              "front": "What's after John",
+              "back": "Acts"
+            },
+            {
+              "front": "What's after Acts",
+              "back": "Romans"
+            },
+            {
+              "front": "What's after Romans",
+              "back": "1 Corinthians"
+            },
+            {
+              "front": "What's after 1 Corinthians",
+              "back": "2 Corinthians"
+            },
+            {
+              "front": "What's after 2 Corinthians",
+              "back": "Galatians"
+            },
+            {
+              "front": "What's after Galatians",
+              "back": "Ephesians"
+            },
+            {
+              "front": "What's after Ephesians",
+              "back": "Philippians"
+            },
+            {
+              "front": "What's after Philippians",
+              "back": "Colossians"
+            },
+            {
+              "front": "What's after Colossians",
+              "back": "1 Thessalonians"
+            },
+            {
+              "front": "What's after 1 Thessalonians",
+              "back": "2 Thessalonians"
+            },
+            {
+              "front": "What's after 2 Thessalonians",
+              "back": "1 Timothy"
+            },
+            {
+              "front": "What's after 1 Timothy",
+              "back": "2 Timothy"
+            },
+            {
+              "front": "What's after 2 Timothy",
+              "back": "Titus"
+            },
+            {
+              "front": "What's after Titus",
+              "back": "Philemon"
+            },
+            {
+              "front": "What's after Philemon",
+              "back": "Hebrews"
+            },
+            {
+              "front": "What's after Hebrews",
+              "back": "James"
+            },
+            {
+              "front": "What's after James",
+              "back": "1 Peter"
+            },
+            {
+              "front": "What's after 1 Peter",
+              "back": "2 Peter"
+            },
+            {
+              "front": "What's after 2 Peter",
+              "back": "1 John"
+            },
+            {
+              "front": "What's after 1 John",
+              "back": "2 John"
+            },
+            {
+              "front": "What's after 2 John",
+              "back": "3 John"
+            },
+            {
+              "front": "What's after 3 John",
+              "back": "Jude"
+            },
+            {
+              "front": "What's after Jude",
+              "back": "Revelation"
+            },
+            {
+              "front": "What's after Revelation",
+              "back": "1 Nephi"
+            },
+            {
+              "front": "What's after 1 Nephi",
+              "back": "2 Nephi"
+            },
+            {
+              "front": "What's after 2 Nephi",
+              "back": "Jacob"
+            },
+            {
+              "front": "What's after Jacob",
+              "back": "Enos"
+            },
+            {
+              "front": "What's after Enos",
+              "back": "Jarom"
+            },
+            {
+              "front": "What's after Jarom",
+              "back": "Omni"
+            },
+            {
+              "front": "What's after Omni",
+              "back": "Words of Mormon"
+            },
+            {
+              "front": "What's after Words of Mormon",
+              "back": "Mosiah"
+            },
+            {
+              "front": "What's after Mosiah",
+              "back": "Alma"
+            },
+            {
+              "front": "What's after Alma",
+              "back": "Helaman"
+            },
+            {
+              "front": "What's after Helaman",
+              "back": "3 Nephi"
+            },
+            {
+              "front": "What's after 3 Nephi",
+              "back": "4 Nephi"
+            },
+            {
+              "front": "What's after 4 Nephi",
+              "back": "Mormon"
+            },
+            {
+              "front": "What's after Mormon",
+              "back": "Ether"
+            },
+            {
+              "front": "What's after Ether",
+              "back": "Moroni"
+            },
+            {
+              "front": "What's after Moroni",
+              "back": "Doctrine and Covenants"
+            },
+            {
+              "front": "What's after Doctrine and Covenants",
+              "back": "Moses"
+            },
+            {
+              "front": "What's after Moses",
+              "back": "Abraham"
+            },
+            {
+              "front": "What's after Abraham",
+              "back": "Joseph Smith—Matthew"
+            },
+            {
+              "front": "What's after Joseph Smith—Matthew",
+              "back": "Joseph Smith—History"
+            },
+            {
+              "front": "What's after Joseph Smith—History",
+              "back": "Articles of Faith"
+            }
+          ]
+        },
+        "Groups of 5": {
+          "name": "Groups of 5",
+          "cards": [
+            {
+              "front": "Genesis 1-5",
+              "back": "Adam and Eve"
+            },
+            {
+              "front": "Genesis 6-10",
+              "back": "Noah and the Flood"
+            },
+            {
+              "front": "Genesis 11-15",
+              "back": "Abram and Sarai"
+            },
+            {
+              "front": "Genesis 16-20",
+              "back": "Hagar/Sodom and Gomorrah/Abimelech"
             }
           ]
         }
