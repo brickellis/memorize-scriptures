@@ -80,6 +80,15 @@ h1 {
     margin-left: 3em;
 }
 
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group label {
+    margin-right: 0.5em;
+}
+
 .checkbox-item {
     display: flex;
     align-items: center;

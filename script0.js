@@ -7,13 +7,18 @@ let sessionState = {
     isFlipped: false,
     sessionActive: false,
     startTime: null,
-    shuffleEnabled: false
+    shuffleEnabled: false,
+    flipEnabled: false
 };
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('shuffle-toggle').checked = sessionState.shuffleEnabled;
     document.getElementById('shuffle-toggle').addEventListener('change', function () {
         sessionState.shuffleEnabled = this.checked;
+    });
+    document.getElementById('flip-toggle').checked = sessionState.flipEnabled;
+    document.getElementById('flip-toggle').addEventListener('change', function () {
+        sessionState.flipEnabled = this.checked;
     });
     setupEventListeners();
     loadFlashcardsFromGitHub();

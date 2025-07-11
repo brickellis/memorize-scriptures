@@ -134,6 +134,8 @@ function setSessionState(fullRestart = true) {
     if (fullRestart) sessionState.remainingCards = sessionState.shuffleEnabled ? shuffleArray([...sessionState.selectedCards]) : [...sessionState.selectedCards];
     else sessionState.remainingCards = sessionState.shuffleEnabled ? shuffleArray([...sessionState.unknownCards]) : [...sessionState.unknownCards];
 
+    sessionState.remainingCards = sessionState.flipEnabled ? flipArray([...sessionState.remainingCards]) : [...sessionState.remainingCards];
+
     sessionState.isFlipped = false;
     sessionState.sessionActive = true;
     sessionState.startTime = Date.now();
@@ -232,6 +234,15 @@ function shuffleArray(array) {
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
+}
+
+function flipArray(array) {
+    return array.map(card => {
+        return {
+            front: card.back,
+            back: card.front
+        };
+    });
 }
 
 function displayCurrentCard() {
