@@ -64,23 +64,15 @@ function startSession() {
     const selectedCards = [];
     const startIndex = parseInt(document.getElementById('start-index').value) || 1;
     const stopIndex = parseInt(document.getElementById('stop-index').value);
+    const maxSize = parseInt(document.getElementById('max-size').value);
     const skipInterval = parseInt(document.getElementById('skip-interval').value) || 1;
-
-    if (stopIndex && startIndex > stopIndex) {
-        showError('Please enter valid start and stop indices (start must be ≤ stop)');
-        return;
-    }
-    if (startIndex < 1 || skipInterval < 1) {
-        showError('Start index and skip interval must be at least 1');
-        return;
-    }
 
     for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
         if (category.subcategories) {
             for (const [subId, subcategory] of Object.entries(category.subcategories)) {
                 const checkbox = document.getElementById(`sub-${categoryId}-${subId}`);
                 if (checkbox && checkbox.checked && subcategory.cards) {
-                    const rangeCards = getCardsWithRange(subcategory.cards, startIndex, stopIndex, skipInterval);
+                    const rangeCards = getCardsWithRange(subcategory.cards, startIndex, stopIndex, maxSize, skipInterval);
                     selectedCards.push(...rangeCards);
                 }
             }

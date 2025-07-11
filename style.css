@@ -165,7 +165,16 @@ h1 {
     margin: 5px;
     width: 100%;
     max-width: 300px;
-    min-height: 44px; /* Better touch target */
+    min-height: 44px;
+}
+
+.addMax {
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 5em;
 }
 
 .btn:hover {

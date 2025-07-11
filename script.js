@@ -249,17 +249,28 @@ function displayCurrentCard() {
     document.getElementById('card-back').classList.remove('active');
 }
 
-function getCardsWithRange(cards, startIndex, stopIndex, skipInterval) {
+function getCardsWithRange(cards, startIndex, stopIndex, maxSize, skipInterval) {
     const selectedCards = [];
     const totalCards = cards.length;
     if (!stopIndex) stopIndex = totalCards;
 
     let currentIndex = startIndex - 1;
 
-    while (currentIndex < totalCards && currentIndex < stopIndex) {
+    while (currentIndex < totalCards && currentIndex < stopIndex && selectedCards.length < maxSize) {
         selectedCards.push(cards[currentIndex]);
         currentIndex += skipInterval;
     }
 
     return selectedCards;
+}
+
+function addMax() {
+    const maxSizeInput = document.getElementById('max-size');
+    const maxSizeValue = parseInt(maxSizeInput.value) || 0;
+
+    const startIndexInput = document.getElementById('start-index');
+    const startIndexValue = parseInt(startIndexInput.value) || 1;
+
+    const newStartIndex = startIndexValue + maxSizeValue;
+    startIndexInput.value = newStartIndex;
 }
