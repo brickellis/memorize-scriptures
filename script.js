@@ -245,3 +245,18 @@ function displayCurrentCard() {
     document.getElementById('card-front').classList.add('active');
     document.getElementById('card-back').classList.remove('active');
 }
+
+function getCardsWithRange(cards, startIndex, stopIndex, skipInterval) {
+    const selectedCards = [];
+    const totalCards = cards.length;
+    if (!stopIndex) stopIndex = totalCards;
+
+    let currentIndex = startIndex - 1;
+
+    while (currentIndex < totalCards && currentIndex < stopIndex) {
+        selectedCards.push(cards[currentIndex]);
+        currentIndex += skipInterval;
+    }
+
+    return selectedCards;
+}

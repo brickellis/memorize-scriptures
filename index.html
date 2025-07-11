@@ -19,6 +19,16 @@
                     <input type="checkbox" id="shuffle-toggle">
                     <label for="shuffle-toggle">Shuffle</label>
                 </div>
+                <div class="range-controls">
+                    <div class="range-inputs">
+                        <label for="start-index">Start:</label>
+                        <input type="number" id="start-index" min="1" value="1">
+                        <label for="stop-index">Stop:</label>
+                        <input type="number" id="stop-index" min="1" value="">
+                        <label for="skip-interval">Skip:</label>
+                        <input type="number" id="skip-interval" min="1" value="1">
+                    </div>
+                </div>
                 <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                 <button class="btn secondary" onclick="selectAll()">Select All</button>
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
@@ -133,13 +143,26 @@
 
         function startSession() {
             const selectedCards = [];
+            const startIndex = parseInt(document.getElementById('start-index').value) || 1;
+            const stopIndex = parseInt(document.getElementById('stop-index').value);
+            const skipInterval = parseInt(document.getElementById('skip-interval').value) || 1;
+
+            if (stopIndex && startIndex > stopIndex) {
+                showError('Please enter valid start and stop indices (start must be ≤ stop)');
+                return;
+            }
+            if (startIndex < 1 || skipInterval < 1) {
+                showError('Start index and skip interval must be at least 1');
+                return;
+            }
 
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 if (category.subcategories) {
                     for (const [subId, subcategory] of Object.entries(category.subcategories)) {
                         const checkbox = document.getElementById(`sub-${categoryId}-${subId}`);
                         if (checkbox && checkbox.checked && subcategory.cards) {
-                            selectedCards.push(...subcategory.cards);
+                            const rangeCards = getCardsWithRange(subcategory.cards, startIndex, stopIndex, skipInterval);
+                            selectedCards.push(...rangeCards);
                         }
                     }
                 }
