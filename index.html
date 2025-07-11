@@ -25,29 +25,33 @@
                         <div>
                             <label for="stop-index">Stop:</label>
                             <input type="number" id="stop-index" min="1" value="">
+                            <span></span>
                         </div>
                         <div>
                             <label for="max-size">Max Size:</label>
                             <input type="number" id="max-size" min="1" value="">
+                            <span></span>
                         </div>
                         <div>
                             <label for="skip-interval">Skip:</label>
                             <input type="number" id="skip-interval" min="1" value="1">
+                            <span></span>
                         </div>
                         <div>
                             <label for="shuffle-toggle">Shuffle</label>
                             <input type="checkbox" id="shuffle-toggle">
+                            <span></span>
                         </div>
                     </div>
                     <div class="button-group">
-                        <button class="btn secondary" onclick="selectAll()">Select All</button>
-                        <button class="btn secondary" onclick="clearAll()">Clear All</button>
+                        <button class="btn" onclick="selectAll()">Select All</button>
+                        <button class="btn" onclick="clearAll()">Clear All</button>
                         <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                     </div>
                 </div>
                 <div id="selection-tree" class="selection-tree"></div>
             </div>
-            <div id="error-msg" class="error">This is an error message that pops up at the bottom</div>
+            <div id="error-msg" class="error default-hidden">This is an error message that pops up at the bottom</div>
         </div>
         <div id="session-screen" class="screen">
             <div class="session-header">
@@ -64,8 +68,8 @@
                 </div>
             </div>
             <div class="session-footer">
-                <button class="btn secondary" onclick="restartSession()">Restart</button>
-                <button class="btn secondary" onclick="backToSelection()">New Session</button>
+                <button class="btn" onclick="restartSession()">Restart</button>
+                <button class="btn" onclick="backToSelection()">New Session</button>
             </div>
         </div>
         <div id="results-screen" class="screen">
@@ -86,10 +90,10 @@
                     </div>
                 </div>
                 <div>
-                    <button id="continue-btn" class="btn" onclick="continueWithMissed()">Continue
-                        with Missed Cards</button>
-                    <button class="btn secondary" onclick="backToSelection()">New Session</button>
-                    <button class="btn secondary" onclick="restartSession()">Restart</button>
+                    <!-- <button id="continue-btn" class="btn default-hidden" onclick="continueWithMissed()">Continue
+                        with Missed Cards</button> -->
+                    <button class="btn" onclick="backToSelection()">New Session</button>
+                    <button class="btn" onclick="restartSession()">Restart</button>
                 </div>
             </div>
         </div>

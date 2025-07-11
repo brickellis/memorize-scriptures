@@ -28,30 +28,24 @@ function renderSelectionTree() {
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'category';
 
-        const categoryHeader = document.createElement('div');
-        categoryHeader.className = 'category-header';
-
         const categoryCheckbox = document.createElement('div');
-        categoryCheckbox.className = 'checkbox-item';
+        categoryCheckbox.className = 'checkbox-item category-header';
         categoryCheckbox.innerHTML = `
                     <input type="checkbox" id="cat-${categoryId}" onchange="toggleCategory('${categoryId}')">
                     <label for="cat-${categoryId}">${category.name}</label>
                     <span class="card-count">(${getTotalCards(category)} cards)</span>
                 `;
 
-        categoryHeader.appendChild(categoryCheckbox);
-        categoryDiv.appendChild(categoryHeader);
+        categoryDiv.appendChild(categoryCheckbox);
 
         if (category.subcategories) {
             for (const [subId, subcategory] of Object.entries(category.subcategories)) {
                 const subDiv = document.createElement('div');
-                subDiv.className = 'subcategory';
+                subDiv.className = 'checkbox-item subcategory';
                 subDiv.innerHTML = `
-                            <div class="checkbox-item">
                                 <input type="checkbox" id="sub-${categoryId}-${subId}" onchange="updateSelectionCount()">
                                 <label for="sub-${categoryId}-${subId}">${subcategory.name}</label>
                                 <span class="card-count">(${subcategory.cards ? subcategory.cards.length : 0} cards)</span>
-                            </div>
                         `;
                 categoryDiv.appendChild(subDiv);
             }

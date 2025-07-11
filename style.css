@@ -5,94 +5,29 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.default-hidden {
+    display: none;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    /* color: #333; */
+    line-height: 1.5;
     background-color: #f4f4f4;
-    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-}
-
-.error {
-    display: none;
-}
-
-#continue-btn {
-    display: none;
-}
-
-#selection-screen {
-    flex-direction: column;
-    min-height: 80vh;
-}
-
-.session-footer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.selection-controls {
-    width: 100%;
-    max-width: 50%;
-    padding: 20px;
-    overflow-y: auto;
-    height: 100%;
-}
-
-.selection-tree {
-    margin: 20px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: none;
-    width: 100%;
-    max-width: 50%;
-    padding: 20px;
-    background-color: #fff;
-    overflow-y: auto;
-    height: 90%;
-    max-height: 70vh;
-}
-
-.main-content {
-    display: flex;
-    flex: 1;
-    height: 100%;
-    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
 }
 
 .container {
-    max-width: 90vw;
-    /* max-height: 90vh; */
-    width: 100%;
-    margin: 0 auto;
+    height: 80%;
+    width: 80%;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .screen {
+    height: 90%;
+    width: 100%;
     display: none;
 }
 
@@ -100,121 +35,179 @@ h1 {
     display: block;
 }
 
-/* Selection Screen */
-.data-input {
-    margin-bottom: 20px;
+.main-content {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.data-input textarea {
-    width: 100%;
-    height: 200px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: clamp(10px, 2vw, 12px);
-    resize: vertical;
+.selection-controls,
+.selection-tree {
+    width: 50%;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.session-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 1em;
 }
 
 .category {
-    margin-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 .category-header {
     font-weight: bold;
-    margin-bottom: 8px;
-    font-size: clamp(14px, 3vw, 16px);
+    background: #DDD;
 }
 
 .subcategory {
-    margin-left: 20px;
-    margin-bottom: 8px;
+    margin-left: 3em;
 }
 
 .checkbox-item {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
-    font-size: clamp(12px, 2.5vw, 14px);
+    margin-bottom: 0.5em;
 }
 
 .checkbox-item input[type="checkbox"] {
-    margin-right: 8px;
-    min-width: 16px;
-    min-height: 16px;
+    margin-right: 1em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: #777;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+}
+
+.checkbox-item.category-header input[type="checkbox"] {
+    margin-left: 0.5em;
 }
 
 .card-count {
-    color: #666;
-    font-size: clamp(11px, 2vw, 13px);
+    color: #777;
+    margin-left: 1em;
 }
 
 .selection-controls {
-    text-align: center;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.btn {
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: clamp(14px, 3vw, 16px);
-    margin: 5px;
-    width: 100%;
-    max-width: 300px;
-    min-height: 44px;
+.range-controls {
+    display: grid;
+    grid-template-columns: 5em 5em 5em;
+    gap: 1em;
+    align-items: center;
+    padding-bottom: 1em;
 }
 
-.addMax {
-    background: #95a5a6;
-    color: white;
+.range-controls>div {
+    display: contents;
+}
+
+.range-controls input[type="number"] {
+    padding: 0.5em;
     border: none;
-    border-radius: 4px;
+    background: #DDD;
+    font-size: 1em;
+}
+
+.range-controls input[type="checkbox"] {
+    width: 2em;
+    height: 2em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: #777;
     cursor: pointer;
+    position: relative;
+}
+
+.range-controls input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+}
+
+.range-controls button {
+    padding: 0.5em 0.5em;
+    font-size: 1em;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background: #777;
     min-width: 5em;
 }
 
+.range-controls button:hover {
+    background-color: #999;
+}
+
+.btn {
+    background: #777;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin: 0.5em;
+    width: 10em;
+    height: 2em;
+}
+
 .btn:hover {
-    background: #2980b9;
+    background: #999;
 }
 
 .btn:disabled {
-    background: #bdc3c7;
+    background: #CCC;
     cursor: not-allowed;
 }
 
-.btn.secondary {
-    background: #95a5a6;
-}
-
-.btn.secondary:hover {
-    background: #7f8c8d;
-}
-
-/* Session Screen */
 .session-header {
     text-align: center;
     margin-bottom: 30px;
 }
 
 .progress {
-    font-size: clamp(16px, 3vw, 18px);
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.card-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    padding: 0 10px;
-}
-
-#card-back {
-    color: #333333;
+    font-size: 1em;
+    color: #777;
+    margin-bottom: 1em;
 }
 
 .unselectable {
@@ -226,11 +219,18 @@ h1 {
     user-select: none;
 }
 
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3em;
+    padding: 0 1em;
+    height: 50%;
+    width: 100%;
+}
+
 .flashcard {
-    width: 90vw;
-    max-width: 600px;
-    height: 40vh;
-    min-height: 250px;
+    height: 100%;
+    width: 50%;
     background: white;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -238,19 +238,11 @@ h1 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
-    cursor: pointer;
-    transition: transform 0.2s;
     position: relative;
 }
 
-.flashcard:hover {
-    transform: translateY(-2px);
-}
-
 .card-content {
-    font-size: clamp(18px, 4vw, 36px);
-    line-height: 1.4;
+    font-size: 2em;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -263,209 +255,121 @@ h1 {
     display: block;
 }
 
-.flip-hint {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: clamp(10px, 2vw, 12px);
-    color: #666;
-}
-
 .session-controls {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 2em;
+    margin-bottom: 2em;
     flex-wrap: wrap;
-    padding: 0 10px;
+    padding: 0 1em;
 }
 
-.control-btn {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: clamp(16px, 3vw, 18px);
-    min-width: 120px;
-    min-height: 50px; /* Better touch target */
-    flex: 1;
-    max-width: 200px;
-}
-
-.control-btn.known {
-    background: #27ae60;
-}
-
-.control-btn:hover {
-    opacity: 0.9;
-}
-
-.keyboard-hint {
-    text-align: center;
-    color: #666;
-    font-size: clamp(12px, 2.5vw, 14px);
-    margin-top: 10px;
-    padding: 0 10px;
-}
-
-.session-actions {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Results Screen */
 .results {
     text-align: center;
 }
 
 .stats {
     display: flex;
-    justify-content: space-around;
-    margin: 30px 0;
+    justify-content: center;
+    margin: 3em 0;
     flex-wrap: wrap;
-    gap: 20px;
-}
-
-.stat-item {
-    text-align: center;
-    min-width: 100px;
+    gap: 2em;
 }
 
 .stat-number {
-    font-size: clamp(24px, 6vw, 36px);
-    font-weight: bold;
-    color: #3498db;
+    font-size: 2em;
 }
 
 .stat-label {
-    font-size: clamp(12px, 2.5vw, 14px);
-    color: #666;
+    font-size: 2em;
+    color: #777;
 }
 
 .error {
-    color: #e74c3c;
+    color: #E43;
     background: #FFFFFF;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    font-size: clamp(12px, 2.5vw, 14px);
+    padding: 1em;
+    border: none;
+    margin-bottom: 2em;
+    font-size: 2em;
 }
 
-.success {
-    color: #27ae60;
-    background: #f2fdf2;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    font-size: clamp(12px, 2.5vw, 14px);
-}
-
-.resume-prompt {
-    background: #fff3cd;
-    border: 1px solid #ffeaa7;
-    padding: 15px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: clamp(12px, 2.5vw, 14px);
-}
-
-/* Mobile-specific optimizations */
 @media (max-width: 768px) {
-    .selection-tree {
-        max-height: 45vh;
+    .container {
+        height: 95%;
+        width: 95%;
+        background: white;
     }
 
     body {
-        padding: 5px;
+        height: 100vh;
     }
-    
-    .container {
-        max-width: 95vw;
-        padding: 15px;
+
+    h1 {
+        text-align: center;
+        font-size: 2em;
     }
-    
+
     .main-content {
-        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        display: block;
+        padding: 0em;
     }
-    
+
     .selection-controls,
     .selection-tree {
         width: 100%;
+        height: 45%;
         max-width: 100%;
-        padding: 15px;
+        padding: 0em;
     }
-    
+
     .session-footer {
         flex-direction: column;
-        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
     }
-    
+
     .btn {
         width: 100%;
         max-width: none;
-        margin: 5px 0;
+        margin: 0.25em;
+        height: 1.5em;
     }
-    
+
+    .session-footer .btn {
+        width: 50%;
+    }
+
+    .range-controls {
+        gap: 0.5em;
+        padding-bottom: 0.5em;
+    }
+
+    .range-controls button:hover {
+        background-color: #999;
+    }
+
     .flashcard {
         width: 95vw;
         height: 35vh;
-        min-height: 200px;
-        padding: 15px;
+        padding: 2em;
+        touch-action: none;
+        overscroll-behavior: contain;
+        overflow: hidden;
     }
-    
+
     .session-controls {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 1em;
     }
-    
-    .control-btn {
-        width: 100%;
-        max-width: 300px;
-        margin-bottom: 10px;
-    }
-    
+
     .stats {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
-    }
-    
-    .stat-item {
-        min-width: 150px;
-    }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
-    }
-    
-    .flashcard {
-        width: 98vw;
-        height: 30vh;
-        min-height: 180px;
-        padding: 10px;
-    }
-    
-    .subcategory {
-        margin-left: 10px;
-    }
-    
-    .checkbox-item {
-        font-size: 13px;
-    }
-    
-    .session-controls {
-        gap: 8px;
-    }
-    
-    .control-btn {
-        padding: 12px 20px;
-        min-height: 45px;
+        gap: 2em;
     }
 }

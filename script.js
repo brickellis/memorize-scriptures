@@ -188,8 +188,8 @@ function completeSession() {
     document.getElementById('unknown-count').textContent = sessionState.unknownCards.length;
     document.getElementById('session-time').textContent = sessionTime + 'm';
 
-    const continueBtn = document.getElementById('continue-btn');
-    continueBtn.style.display = sessionState.unknownCards.length > 0 ? 'block' : 'none';
+    // const continueBtn = document.getElementById('continue-btn');
+    // continueBtn.style.display = sessionState.unknownCards.length > 0 ? 'block' : 'none';
 
     showScreen('results-screen');
 }
