@@ -221,6 +221,13 @@ function showScreen(screenId) {
     document.getElementById(screenId).classList.add('active');
 }
 
+function showScreens() {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById('session-screen').classList.add('active');
+}
+
 function showError(message) {
     const errorMsg = document.getElementById('error-msg');
     errorMsg.textContent = message;

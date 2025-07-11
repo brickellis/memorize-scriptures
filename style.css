@@ -23,6 +23,7 @@ body {
     height: 80%;
     width: 80%;
     background: white;
+    position: relative;
 }
 
 .screen {
@@ -44,10 +45,52 @@ body {
 }
 
 .selection-controls,
-.selection-tree {
+.selection-tree,
+.help-grid {
     width: 50%;
     height: 80%;
     overflow-y: auto;
+}
+
+.top-right-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    color: #777;
+    border: none;
+    cursor: pointer;
+    font-size: 2em;
+    margin: 0.5em;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.top-right-link:hover {
+    color: #999;
+}
+.below-right-link {
+    position: absolute;
+    top: 0;
+    left: 2em;
+    background: white;
+    color: #777;
+    border: none;
+    cursor: pointer;
+    font-size: 2em;
+    margin: 0.5em;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.below-right-link:hover {
+    color: #999;
+}
+
+.help-grid {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    gap: 1em;
 }
 
 .session-footer {
@@ -81,8 +124,8 @@ h1 {
 }
 
 .checkbox-group {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .checkbox-group label {
@@ -303,7 +346,22 @@ h1 {
     font-size: 2em;
 }
 
+.disabled-div {
+    pointer-events: none;
+}
+
 @media (max-width: 768px) {
+
+    .top-right-link {
+        bottom: 0;
+        top: auto;
+    }
+
+    .below-right-link {
+        bottom: 0;
+        top: auto;
+    }
+
     .container {
         height: 95%;
         width: 95%;
@@ -327,7 +385,8 @@ h1 {
     }
 
     .selection-controls,
-    .selection-tree {
+    .selection-tree,
+    .help-grid {
         width: 100%;
         height: 45%;
         max-width: 100%;
