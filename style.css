@@ -16,6 +16,10 @@ body {
     display: none;
 }
 
+#continue-btn {
+    display: none;
+}
+
 #selection-screen {
     /* display: flex; */
     flex-direction: column;
