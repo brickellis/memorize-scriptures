@@ -321,6 +321,10 @@
                     <input type="checkbox" id="shuffle-toggle" checked>
                     <label for="shuffle-toggle">Shuffle Cards</label>
                 </div>
+                <div class="mod5-toggle">
+                    <input type="checkbox" id="mod5-toggle">
+                    <label for="mod5-toggle">Select chapters ≡ 1 (mod 5)</label>
+                </div>
                 <button id="start-btn" class="btn" onclick="startSession()" disabled>Start Session</button>
                 <button class="btn secondary" onclick="selectAll()">Select All</button>
                 <button class="btn secondary" onclick="clearAll()">Clear All</button>
@@ -387,17 +391,30 @@
             knownCards: [],
             unknownCards: [],
             // New state variable for shuffle
-            shuffleEnabled: true
+            shuffleEnabled: true,
+            // New state variable for mod5 selection
+            mod5Enabled: false
         };
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function () {
             // Set initial state of shuffle toggle
             document.getElementById('shuffle-toggle').checked = sessionState.shuffleEnabled;
+            document.getElementById('mod5-toggle').checked = sessionState.mod5Enabled;
+
             // Add event listener for the shuffle toggle
             document.getElementById('shuffle-toggle').addEventListener('change', function () {
                 sessionState.shuffleEnabled = this.checked;
             });
+
+            // Add event listener for the mod5 toggle
+            document.getElementById('mod5-toggle').addEventListener('change', function () {
+                sessionState.mod5Enabled = this.checked;
+                if (flashcardData) {
+                    renderSelectionTree();
+                }
+            });
+
             setupEventListeners();
             // Load flashcards.json from GitHub Pages
             loadFlashcardsFromGitHub();
@@ -508,6 +525,33 @@
             return data && data.categories && typeof data.categories === 'object';
         }
 
+        function extractChapterNumber(subcategoryName) {
+            const match = subcategoryName.match(/\d+/);
+            return match ? parseInt(match[0]) : null;
+        }
+
+        function createGroupsOf5(subcategories) {
+            const groups = [];
+            const sortedKeys = Object.keys(subcategories).sort((a, b) => {
+                const numA = extractChapterNumber(subcategories[a].name);
+                const numB = extractChapterNumber(subcategories[b].name);
+                return numA - numB;
+            });
+
+            for (let i = 0; i < sortedKeys.length; i += 5) {
+                const groupKeys = sortedKeys.slice(i, i + 5);
+                const firstChapter = extractChapterNumber(subcategories[groupKeys[0]].name);
+                const lastChapter = extractChapterNumber(subcategories[groupKeys[groupKeys.length - 1]].name);
+
+                groups.push({
+                    keys: groupKeys,
+                    name: `Chapters ${firstChapter}-${lastChapter}`,
+                    cardCount: groupKeys.reduce((sum, key) => sum + (subcategories[key].cards ? subcategories[key].cards.length : 0), 0)
+                });
+            }
+            return groups;
+        }
+
         function renderSelectionTree() {
             const tree = document.getElementById('selection-tree');
             tree.innerHTML = '';
@@ -519,34 +563,82 @@
 
                 const categoryHeader = document.createElement('div');
                 categoryHeader.className = 'category-header';
+                categoryHeader.style.cursor = 'pointer';
+                categoryHeader.onclick = () => toggleCategoryExpansion(categoryId);
 
                 const categoryCheckbox = document.createElement('div');
                 categoryCheckbox.className = 'checkbox-item';
+
+                const expandIcon = document.createElement('span');
+                expandIcon.className = 'expand-icon';
+                expandIcon.textContent = '▼';
+                expandIcon.id = `expand-${categoryId}`;
+
                 categoryCheckbox.innerHTML = `
                     <input type="checkbox" id="cat-${categoryId}" onchange="toggleCategory('${categoryId}')">
                     <label for="cat-${categoryId}">${category.name}</label>
                     <span class="card-count">(${getTotalCards(category)} cards)</span>
                 `;
 
+                categoryHeader.appendChild(expandIcon);
                 categoryHeader.appendChild(categoryCheckbox);
                 categoryDiv.appendChild(categoryHeader);
 
+                const subcategoryContainer = document.createElement('div');
+                subcategoryContainer.className = 'subcategory-container';
+                subcategoryContainer.id = `subcategories-${categoryId}`;
+
                 if (category.subcategories) {
-                    for (const [subId, subcategory] of Object.entries(category.subcategories)) {
-                        const subDiv = document.createElement('div');
-                        subDiv.className = 'subcategory';
-                        subDiv.innerHTML = `
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="sub-${categoryId}-${subId}" onchange="updateSelectionCount()">
-                                <label for="sub-${categoryId}-${subId}">${subcategory.name}</label>
-                                <span class="card-count">(${subcategory.cards ? subcategory.cards.length : 0} cards)</span>
-                            </div>
-                        `;
-                        categoryDiv.appendChild(subDiv);
+                    if (sessionState.mod5Enabled) {
+                        // Mod 5 mode: show individual subcategories that are ≡ 1 (mod 5)
+                        for (const [subId, subcategory] of Object.entries(category.subcategories)) {
+                            const chapterNum = extractChapterNumber(subcategory.name);
+                            if (chapterNum && chapterNum % 5 === 1) {
+                                const subDiv = document.createElement('div');
+                                subDiv.className = 'subcategory';
+                                subDiv.innerHTML = `
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="sub-${categoryId}-${subId}" onchange="updateSelectionCount()">
+                                        <label for="sub-${categoryId}-${subId}">${subcategory.name}</label>
+                                        <span class="card-count">(${subcategory.cards ? subcategory.cards.length : 0} cards)</span>
+                                    </div>
+                                `;
+                                subcategoryContainer.appendChild(subDiv);
+                            }
+                        }
+                    } else {
+                        // Groups of 5 mode
+                        const groups = createGroupsOf5(category.subcategories);
+                        for (const [groupIndex, group] of groups.entries()) {
+                            const groupDiv = document.createElement('div');
+                            groupDiv.className = 'subcategory';
+                            groupDiv.innerHTML = `
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="group-${categoryId}-${groupIndex}" onchange="updateSelectionCount()" data-group-keys="${group.keys.join(',')}">
+                                    <label for="group-${categoryId}-${groupIndex}">${group.name}</label>
+                                    <span class="card-count">(${group.cardCount} cards)</span>
+                                </div>
+                            `;
+                            subcategoryContainer.appendChild(groupDiv);
+                        }
                     }
                 }
 
+                categoryDiv.appendChild(subcategoryContainer);
                 tree.appendChild(categoryDiv);
+            }
+        }
+
+        function toggleCategoryExpansion(categoryId) {
+            const subcategories = document.getElementById(`subcategories-${categoryId}`);
+            const expandIcon = document.getElementById(`expand-${categoryId}`);
+
+            if (subcategories.style.display === 'none') {
+                subcategories.style.display = 'block';
+                expandIcon.textContent = '▼';
+            } else {
+                subcategories.style.display = 'none';
+                expandIcon.textContent = '▶';
             }
         }
 
@@ -564,12 +656,29 @@
             const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
             const isChecked = categoryCheckbox.checked;
 
-            // Toggle all subcategories
+            // Toggle all subcategories/groups
             const category = flashcardData.categories[categoryId];
             if (category.subcategories) {
-                for (const subId of Object.keys(category.subcategories)) {
-                    const subCheckbox = document.getElementById(`sub-${categoryId}-${subId}`);
-                    subCheckbox.checked = isChecked;
+                if (sessionState.mod5Enabled) {
+                    // Toggle individual subcategories that are ≡ 1 (mod 5)
+                    for (const [subId, subcategory] of Object.entries(category.subcategories)) {
+                        const chapterNum = extractChapterNumber(subcategory.name);
+                        if (chapterNum && chapterNum % 5 === 1) {
+                            const subCheckbox = document.getElementById(`sub-${categoryId}-${subId}`);
+                            if (subCheckbox) {
+                                subCheckbox.checked = isChecked;
+                            }
+                        }
+                    }
+                } else {
+                    // Toggle groups of 5
+                    const groups = createGroupsOf5(category.subcategories);
+                    for (let i = 0; i < groups.length; i++) {
+                        const groupCheckbox = document.getElementById(`group-${categoryId}-${i}`);
+                        if (groupCheckbox) {
+                            groupCheckbox.checked = isChecked;
+                        }
+                    }
                 }
             }
 
@@ -577,19 +686,45 @@
         }
 
         function updateSelectionCount() {
-            const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"][id^="sub-"]');
-            const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-            const startBtn = document.getElementById('start-btn');
+            let selectedCount = 0;
 
+            if (sessionState.mod5Enabled) {
+                const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"][id^="sub-"]');
+                selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            } else {
+                const checkboxes = document.querySelectorAll('#selection-tree input[type="checkbox"][id^="group-"]');
+                selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            }
+
+            const startBtn = document.getElementById('start-btn');
             startBtn.disabled = selectedCount === 0;
 
             // Update category checkboxes
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 const categoryCheckbox = document.getElementById(`cat-${categoryId}`);
                 if (category.subcategories) {
-                    const subCheckboxes = Object.keys(category.subcategories).map(subId =>
-                        document.getElementById(`sub-${categoryId}-${subId}`)
-                    );
+                    let subCheckboxes = [];
+
+                    if (sessionState.mod5Enabled) {
+                        for (const [subId, subcategory] of Object.entries(category.subcategories)) {
+                            const chapterNum = extractChapterNumber(subcategory.name);
+                            if (chapterNum && chapterNum % 5 === 1) {
+                                const subCheckbox = document.getElementById(`sub-${categoryId}-${subId}`);
+                                if (subCheckbox) {
+                                    subCheckboxes.push(subCheckbox);
+                                }
+                            }
+                        }
+                    } else {
+                        const groups = createGroupsOf5(category.subcategories);
+                        for (let i = 0; i < groups.length; i++) {
+                            const groupCheckbox = document.getElementById(`group-${categoryId}-${i}`);
+                            if (groupCheckbox) {
+                                subCheckboxes.push(groupCheckbox);
+                            }
+                        }
+                    }
+
                     const checkedSubs = subCheckboxes.filter(cb => cb.checked).length;
 
                     if (checkedSubs === 0) {
@@ -624,10 +759,30 @@
 
             for (const [categoryId, category] of Object.entries(flashcardData.categories)) {
                 if (category.subcategories) {
-                    for (const [subId, subcategory] of Object.entries(category.subcategories)) {
-                        const checkbox = document.getElementById(`sub-${categoryId}-${subId}`);
-                        if (checkbox && checkbox.checked && subcategory.cards) {
-                            selectedCards.push(...subcategory.cards);
+                    if (sessionState.mod5Enabled) {
+                        // Collect cards from individual subcategories that are ≡ 1 (mod 5)
+                        for (const [subId, subcategory] of Object.entries(category.subcategories)) {
+                            const chapterNum = extractChapterNumber(subcategory.name);
+                            if (chapterNum && chapterNum % 5 === 1) {
+                                const checkbox = document.getElementById(`sub-${categoryId}-${subId}`);
+                                if (checkbox && checkbox.checked && subcategory.cards) {
+                                    selectedCards.push(...subcategory.cards);
+                                }
+                            }
+                        }
+                    } else {
+                        // Collect cards from groups of 5
+                        const groups = createGroupsOf5(category.subcategories);
+                        for (let i = 0; i < groups.length; i++) {
+                            const checkbox = document.getElementById(`group-${categoryId}-${i}`);
+                            if (checkbox && checkbox.checked) {
+                                const groupKeys = checkbox.getAttribute('data-group-keys').split(',');
+                                for (const key of groupKeys) {
+                                    if (category.subcategories[key] && category.subcategories[key].cards) {
+                                        selectedCards.push(...category.subcategories[key].cards);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
