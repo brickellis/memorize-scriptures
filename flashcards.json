@@ -640,127 +640,127 @@
           "cards": [
             {
               "front": "Deuteronomy 1",
-              "back": "Retelling of Israel's failures"
+              "back": "Moses recites Israel's history"
             },
             {
               "front": "Deuteronomy 2",
-              "back": "End of wilderness years"
+              "back": "Israel passes through the lands of Esau and Ammon."
             },
             {
               "front": "Deuteronomy 3",
-              "back": "Possessing Gilead and Bashan"
+              "back": "Reuben and Gad receive land east of Jordan."
             },
             {
               "front": "Deuteronomy 4",
-              "back": "Exhortation to obey God"
+              "back": "Moses prophesies of the scattering of Israel and exhorts them to be obedient."
             },
             {
               "front": "Deuteronomy 5",
-              "back": "Assessing the 10 Commandments"
+              "back": "Moses reviews the Ten Commandments"
             },
             {
               "front": "Deuteronomy 6",
-              "back": "Teaching children the law"
+              "back": "Israel is commanded to teach their children."
             },
             {
               "front": "Deuteronomy 7",
-              "back": "Idolatry warned; obedience blessed"
+              "back": "Israel will destroy the Canaanites. They must remain separate and holy."
             },
             {
               "front": "Deuteronomy 8",
-              "back": "Necessity of God's testing"
+              "back": "The Lord reminds Israel that they need Him."
             },
             {
               "front": "Deuteronomy 9",
-              "back": "God's grace after intercession"
+              "back": "Moses tells of his intercessions for Israel."
             },
             {
               "front": "Deuteronomy 10",
-              "back": "Tablets for the ark"
+              "back": "The tablets are placed in the ark."
             },
             {
               "front": "Deuteronomy 11",
-              "back": "Heritage for obeying God"
+              "back": "Israel will be blessed if they obey and cursed if they don't."
             },
             {
               "front": "Deuteronomy 12",
-              "back": "Enjoy the holy separation"
+              "back": "Israel must destroy the Canaanites' idols and worship where God commands."
             },
             {
               "front": "Deuteronomy 13",
-              "back": "Lying enticers are stoned"
+              "back": "Worshippers of false gods will be destroyed."
             },
             {
               "front": "Deuteronomy 14",
-              "back": "Animals suitable for eating"
+              "back": "Israelites must not eat unclean animals and must tithe."
             },
             {
               "front": "Deuteronomy 15",
-              "back": "Way of releasing debts"
+              "back": "Debts and servants are released every seven years."
             },
             {
               "front": "Deuteronomy 16",
-              "back": "Feasts listed and explained"
+              "back": "Israel must keep the Passover and other feasts."
             },
             {
               "front": "Deuteronomy 17",
-              "back": "Obliteration of all evildoers"
+              "back": "Kings must be chosen by God and be good."
             },
             {
               "front": "Deuteronomy 18",
-              "back": "Rights of Levites, future Prophet"
+              "back": "The rights of Levites. Prophesy of Jesus the prophet."
             },
             {
               "front": "Deuteronomy 19",
-              "back": "Involuntary killer given refuge"
+              "back": "Refuge cities for manslaughter. Laws of witnesses."
             },
             {
               "front": "Deuteronomy 20",
-              "back": "Strategy for God's warfare"
+              "back": "Laws for armies and warfare"
             },
             {
               "front": "Deuteronomy 21",
-              "back": "Rebellious son is punished"
+              "back": "Laws for treating wives and children fairly"
             },
             {
               "front": "Deuteronomy 22",
-              "back": "Adultery and morality laws"
+              "back": "Laws for sexual morality"
             },
             {
               "front": "Deuteronomy 23",
-              "back": "Exclusions from the assemblies"
+              "back": "Moses specifies who may enter the congregation"
             },
             {
               "front": "Deuteronomy 24",
-              "back": "Leaving a mate legally"
+              "back": "Laws of divorce"
             },
             {
               "front": "Deuteronomy 25",
-              "back": "Summary of civil laws"
+              "back": "Laws of judges, widows, and weights and measures"
             },
             {
               "front": "Deuteronomy 26",
-              "back": "Offering of firstfruits"
+              "back": "Offering of firstfruits and tithes"
             },
             {
               "front": "Deuteronomy 27",
-              "back": "Building the Ebal altar"
+              "back": "Building an altar in Ebal"
             },
             {
               "front": "Deuteronomy 28",
-              "back": "Extended blessings and cursings"
+              "back": "Israel will face plagues and oppression if disobedient."
             },
             {
               "front": "Deuteronomy 29",
-              "back": "Disobedience will bring curses"
+              "back": "Reminder of the covenant of Israel"
             },
             {
               "front": "Deuteronomy 30",
-              "back": "Initiative for following God"
+              "back": "Israel will gather when they remember the covenant."
             },
             {
               "front": "Deuteronomy 31",
-              "back": "Establishment of Joshua's leading"
+              "back": "Moses counsels Israel and Joshua."
             },
             {
               "front": "Deuteronomy 32",
@@ -768,11 +768,11 @@
             },
             {
               "front": "Deuteronomy 33",
-              "back": "Conferring the tribal blessings"
+              "back": "Moses blesses the twelve tribes of Israel."
             },
             {
               "front": "Deuteronomy 34",
-              "back": "End of Moses' life"
+              "back": "Moses sees the Promised Land, dies, and is succeeded by Joshua."
             }
           ]
         },
@@ -6274,6 +6274,35 @@
             {
               "front": "Numbers 36",
               "back": "Marrying Within the Tribe"
+            },
+            {
+              "front": "Deuteronomy 1-5",
+              "back": "Moses Reviews"
+            },
+            {
+              "front": "Deuteronomy 6-10",
+              "back": "The Greatest Commandment and the Ten Commandments"
+            },
+            {
+              "front": "Deuteronomy 11-15",
+              "back": "False Idols, Unclean Animals, and Seven Years"
+            },
+            {
+              "front": "Deuteronomy 16-20",
+              "back": "Leaders, Prophesies, and Warfare"
+            },
+            {
+              "front": "Deuteronomy 21-25",
+              "back": "Laws for Marriage"
+            }
+            ,
+            {
+              "front": "Deuteronomy 26-30",
+              "back": "What Israel Must Do When Settled"
+            },
+            {
+              "front": "Deuteronomy 31-34",
+              "back": "Moses' Last Words and Death"
             }
           ]
         }
