@@ -1,5 +1,16 @@
 {
   "extends": [
     "development"
-  ]
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "overscroll-behavior",
+          "overscroll-behavior: contain"
+        ]
+      }
+    ]
+  }
 }
