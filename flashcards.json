@@ -378,43 +378,43 @@
           "cards": [
             {
               "front": "Leviticus 1",
-              "back": "Holiness requires burnt offerings"
+              "back": "Burnt offerings"
             },
             {
               "front": "Leviticus 2",
-              "back": "Acceptance of grain offerings"
+              "back": "Offerings of flour, oil, and incense"
             },
             {
               "front": "Leviticus 3",
-              "back": "Necessity of peace offerings"
+              "back": "Peace offerings"
             },
             {
               "front": "Leviticus 4",
-              "back": "Demand for sin offering"
+              "back": "Offerings for atonement"
             },
             {
               "front": "Leviticus 5",
-              "back": "Burnt offerings for trespasses"
+              "back": "Tresspass offerings"
             },
             {
               "front": "Leviticus 6",
-              "back": "Offering laws for priests"
+              "back": "Offerings and obtaining forgiveness"
             },
             {
               "front": "Leviticus 7",
-              "back": "Offering laws for priests"
+              "back": "Laws of sacrifice"
             },
             {
               "front": "Leviticus 8",
-              "back": "Keeping the priest consecrated"
+              "back": "Consecration of Aaron and his sons"
             },
             {
               "front": "Leviticus 9",
-              "back": "Offering of Aaron's sacrifice"
+              "back": "Aaron makes a sacrifice. The offerings are consumed by fire."
             },
             {
               "front": "Leviticus 10",
-              "back": "Fire consumes Nadab, Abihu"
+              "back": "Nadab and Abihu perform unauthorized sacrifices and are killed by fire."
             },
             {
               "front": "Leviticus 11",
@@ -422,27 +422,27 @@
             },
             {
               "front": "Leviticus 12",
-              "back": "Offerings for birth purification"
+              "back": "Offerings for purification after childbirth"
             },
             {
               "front": "Leviticus 13",
-              "back": "Requirements for unclean lepers"
+              "back": "Requirements for lepers"
             },
             {
               "front": "Leviticus 14",
-              "back": "Sign of cleansing leapers"
+              "back": "Laws, rites, and sacrifices for lepers"
             },
             {
               "front": "Leviticus 15",
-              "back": "Hygiene for human uncleanness"
+              "back": "Laws, rites, and sacrifices for other uncleanliness"
             },
             {
               "front": "Leviticus 16",
-              "back": "Instituting Day of Atonement"
+              "back": "Instituting the Day of Atonement"
             },
             {
               "front": "Leviticus 17",
-              "back": "Prominence of the blood"
+              "back": "Sacrificing to devils and eating blood are forbidden. Shedding blood is required for atonement."
             },
             {
               "front": "Leviticus 18",
@@ -450,39 +450,39 @@
             },
             {
               "front": "Leviticus 19",
-              "back": "Orders to be holy"
+              "back": "The Lord commands Israel to be holy. Affirms sundry laws and commandments."
             },
             {
               "front": "Leviticus 20",
-              "back": "Restrictions against moral sin"
+              "back": "Sins requiring death"
             },
             {
               "front": "Leviticus 21",
-              "back": "Priests qualifications before God"
+              "back": "Requirements for priests to remain holy"
             },
             {
               "front": "Leviticus 22",
-              "back": "Respect for God's offerings"
+              "back": "The priests and families may eat of holy things. The offerings must be perfect."
             },
             {
               "front": "Leviticus 23",
-              "back": "Institution of religious feasts"
+              "back": "The laws of the feasts"
             },
             {
               "front": "Leviticus 24",
-              "back": "Eating the holy bread"
+              "back": "The holy bread. Eye for an eye."
             },
             {
               "front": "Leviticus 25",
-              "back": "Sabbatical year and jubilee"
+              "back": "Sabbath years. Sales of lands, houses, and servants."
             },
             {
               "front": "Leviticus 26",
-              "back": "Trouble promised for disobedience"
+              "back": "Blessings promised for obedience. Curses for disobedience. Mercy for repentance."
             },
             {
               "front": "Leviticus 27",
-              "back": "Seriousness of keeping vows"
+              "back": "Consecration of property and tithing"
             }
           ]
         },
@@ -6218,8 +6218,31 @@
             {
               "front": "Exodus 36-40",
               "back": "The Construction of the Tabernacle"
+            },
+            {
+              "front": "Leviticus 1-5",
+              "back": "Offerings"
+            },
+            {
+              "front": "Leviticus 6-10",
+              "back": "Forgiveness, Sacrifice, and the Priesthood"
+            },
+            {
+              "front": "Leviticus 11-15",
+              "back": "Uncleanliness"
+            },
+            {
+              "front": "Leviticus 16-20",
+              "back": "The Day of Atonement and Laws for Holy Living"
+            },
+            {
+              "front": "Leviticus 21-25",
+              "back": "Laws for Priests, Feasts, and Sabbath Years"
+            },
+            {
+              "front": "Leviticus 26-27",
+              "back": "Be Obedient and Prosper. Consecrate and Tithe."
             }
-
           ]
         }
       }
